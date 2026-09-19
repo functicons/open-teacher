@@ -30,6 +30,14 @@ For framework maintenance, do not initialize or modify `user_data/` unless testi
 in an isolated disposable workspace. Use synthetic examples labeled as such.
 Never copy a private profile or transcript into a bug report.
 
+## Installable workflow skill
+
+The top-level `skills/open-teacher/` packages the workflow for native skill
+installation. Optional teaching techniques stay in `metadata/skills/`.
+Its `references/workspace/` is generated from canonical framework files; change
+those sources and run `python3 scripts/build-skill.py` rather than editing copies.
+See [installation and maintenance](docs/install_skill.md).
+
 ## Verify before submitting
 
 Read the full diff, including new assets. Check local links and `git diff --check`.

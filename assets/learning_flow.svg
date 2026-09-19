@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="360" viewBox="0 0 1440 360" role="img" aria-labelledby="title desc">
+  <title id="title">Ask. Save. Continue.</title>
+  <desc id="desc">Ask any question with your chosen agent. Save useful context and artifacts in your own files. In another conversation, a compatible agent reads those files so you can continue or change topics.</desc>
+  <rect width="1440" height="360" fill="white"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#142e54">
+    <path d="M40 32H440M520 32H920M1000 32H1400" stroke="#d1d5db" stroke-width="2"/>
+    <text x="40" y="88" font-size="20" fill="#2563eb" font-weight="700">01 · ASK</text>
+    <text x="520" y="88" font-size="20" fill="#2563eb" font-weight="700">02 · SAVE</text>
+    <text x="1000" y="88" font-size="20" fill="#dc3545" font-weight="700">03 · CONTINUE</text>
+    <text x="40" y="149" font-size="32" font-weight="700">Follow your curiosity.</text>
+    <text x="520" y="149" font-size="32" font-weight="700">Keep what matters.</text>
+    <text x="1000" y="149" font-size="32" font-weight="700">Bring the context along.</text>
+    <g font-size="23" fill="#626c7a">
+      <text x="40" y="207">“Help me understand this.”</text>
+      <text x="40" y="247">Any topic. Your preferred AI.</text>
+      <text x="520" y="207">Questions, attempts, useful artifacts.</text>
+      <text x="520" y="247">Inspectable files you control.</text>
+      <text x="1000" y="207">New chat or a different agent.</text>
+      <text x="1000" y="247">Same files. Continue or change topics.</text>
+    </g>
+    <path d="M458 166h40m-10-10 10 10-10 10M938 166h40m-10-10 10 10-10 10" fill="none" stroke="#2563eb" stroke-width="3"/>
+    <text x="720" y="326" text-anchor="middle" font-size="19" fill="#626c7a">The agent records meaningful checkpoints. Switching agents does not synchronize files automatically.</text>
+  </g>
+</svg>

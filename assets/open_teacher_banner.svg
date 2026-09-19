@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="800" viewBox="0 0 1440 800" role="img" aria-labelledby="title desc">
+  <title id="title">Open Teacher — Your AI. Your learning. Your files.</title>
+  <desc id="desc">Codex and Claude Code each read and write the same learning memory. Your questions, knowledge, progress, and artifacts stay with you across agents.</desc>
+  <defs>
+    <marker id="blueArrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto-start-reverse"><path d="M1 1L6 4L1 7" fill="none" stroke="#2563eb" stroke-width="1.6"/></marker>
+    <marker id="redArrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto-start-reverse"><path d="M1 1L6 4L1 7" fill="none" stroke="#dc3545" stroke-width="1.6"/></marker>
+    <g id="terminal" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect width="62" height="48" rx="7"/><path d="M1 13H61M14 24l8 7-8 7m17 0h13"/></g>
+    <g id="file" fill="white" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M0 0h40l18 18v58H0z"/><path d="M40 0v18h18" fill="#f3f4f6"/></g>
+  </defs>
+  <rect width="1440" height="800" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#142e54">
+    <text x="720" y="100" text-anchor="middle" font-size="72" font-weight="700" letter-spacing="-3">Open Teacher</text>
+    <text x="720" y="150" text-anchor="middle" font-size="28">An open standard for AI learning memory</text>
+    <path d="M72 192H1368" stroke="#e5e7eb" stroke-width="2"/>
+    <text x="82" y="258" font-size="26" font-weight="700">Choose your AI</text>
+    <rect x="82" y="294" width="294" height="104" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <use href="#terminal" x="104" y="322" color="#2563eb"/>
+    <text x="191" y="357" font-size="30" font-weight="700">Codex</text>
+    <rect x="82" y="456" width="294" height="104" rx="12" fill="#fff1f2" stroke="#dc3545" stroke-width="2"/>
+    <use href="#terminal" x="104" y="484" color="#dc3545"/>
+    <text x="187" y="519" font-size="26" font-weight="700">Claude Code</text>
+    <path d="M396 346C445 346 452 390 494 390" fill="none" stroke="#2563eb" stroke-width="3" marker-start="url(#blueArrow)" marker-end="url(#blueArrow)"/>
+    <path d="M396 508C445 508 452 464 494 464" fill="none" stroke="#dc3545" stroke-width="3" marker-start="url(#redArrow)" marker-end="url(#redArrow)"/>
+    <text x="224" y="605" text-anchor="middle" font-size="18" fill="#626c7a">Or another compatible agent</text>
+    <path d="M521 315V290Q521 277 535 277H654L683 306H903Q920 306 920 323V550Q920 568 902 568H539Q521 568 521 550Z" fill="#eff6ff" stroke="#142e54" stroke-width="4"/>
+    <path d="M521 335H920" stroke="#142e54" stroke-width="4"/>
+    <g color="#2563eb"><use href="#file" x="569" y="364"/><use href="#file" x="690" y="364"/></g>
+    <use href="#file" x="811" y="364" color="#dc3545"/>
+    <g stroke="#2563eb" stroke-width="3" fill="none"><circle cx="598" cy="394" r="8"/><path d="M585 422v-6q13-18 26 0v6M703 395h25m-25 12h25m-25 12h18"/></g>
+    <path d="M827 386h24v37l-12-9-12 9z" fill="#dc3545"/>
+    <text x="721" y="484" text-anchor="middle" font-size="27" font-weight="700">Shared learning memory</text>
+    <text x="721" y="520" text-anchor="middle" font-size="19" fill="#626c7a">Context · knowledge · continuation</text>
+    <path d="M943 427H1017" stroke="#2563eb" stroke-width="3" marker-start="url(#blueArrow)" marker-end="url(#blueArrow)"/>
+    <text x="1052" y="258" font-size="26" font-weight="700">Keep your learning</text>
+    <g color="#142e54"><use href="#file" x="1057" y="338"/><use href="#file" x="1167" y="338"/><use href="#file" x="1277" y="338"/></g>
+    <path d="M1069 367h27m-27 12h27m-27 12h19" stroke="#2563eb" stroke-width="3"/>
+    <path d="M1184 366l-8 9 8 9m24-18 8 9-8 9m-10-24-7 30" fill="none" stroke="#2563eb" stroke-width="3"/>
+    <path d="M1291 397v-16m13 16v-27m13 27v-36" stroke="#dc3545" stroke-width="7"/>
+    <text x="1086" y="448" text-anchor="middle" font-size="18">Notes</text>
+    <text x="1196" y="448" text-anchor="middle" font-size="18">Code</text>
+    <text x="1306" y="448" text-anchor="middle" font-size="18">Visuals</text>
+    <text x="1198" y="523" text-anchor="middle" font-size="21" font-weight="700">Any topic. Your direction.</text>
+    <text x="1198" y="555" text-anchor="middle" font-size="18" fill="#626c7a">No fixed course required.</text>
+    <path d="M72 649H1368" stroke="#e5e7eb" stroke-width="2"/>
+    <text x="720" y="712" text-anchor="middle" font-size="38" font-weight="700">Your AI. Your learning. Your files.</text>
+    <text x="720" y="757" text-anchor="middle" font-size="20" fill="#626c7a">Your agent teaches. Open Teacher defines what carries forward.</text>
+  </g>
+</svg>
