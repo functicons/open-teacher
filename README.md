@@ -25,19 +25,13 @@ belongs to one app, changing tools can mean rebuilding your learning history.
 
 **Your learning should outlast a chat—and remain yours when you change teachers.**
 
-| Learning problem | Why Open Teacher takes this approach |
-| --- | --- |
-| A new conversation lacks the useful context from earlier sessions. | **Persistent records:** save meaningful checkpoints, open questions, and stopping points instead of relying on chat history alone. |
-| Memory tied to one tutor or provider is difficult for another agent to use. | **An open protocol:** give compatible agents a shared way to interpret the same user-owned files. |
-| A tutor's course structure may not fit a spontaneous question or topic change. | **Flexible teaching:** keep topics open; courses, assessments, and projects are optional. |
-| Reading an explanation can be mistaken for understanding it. | **Evidence-aware memory:** distinguish material presented, learner self-report, and demonstrated performance. |
-| Code, slides, and experiments become detached from the conversation that gave them meaning. | **Linked projects and artifacts:** preserve sources, purpose, and connections to the learning record. |
+![Learning problems shape the design: context gaps → persistent records; app-specific memory → an open protocol; fixed courses → flexible topics; unsupported learning claims → evidence; scattered outputs → linked projects and artifacts.](assets/why_open_teacher.svg)
 
 That is why Open Teacher is a protocol you bring to your preferred agent. The
 agent provides the model and tools; the reference workspace provides inspectable
 files without requiring a separate tutoring service or database.
 
-[Design rationale and examples →](docs/overview.md)
+[Read the design rationale →](docs/overview.md#why-these-design-choices)
 
 ## How
 

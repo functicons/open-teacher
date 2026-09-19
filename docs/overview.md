@@ -40,6 +40,20 @@ you read from something you can do yourself.
 Open Teacher gives that history a shared, inspectable home—and defines how the
 next agent should read and update it.
 
+## Why these design choices
+
+| Learning problem | Why Open Teacher takes this approach |
+| --- | --- |
+| A new conversation lacks the useful context from earlier sessions. | **Persistent records:** save meaningful checkpoints, open questions, and stopping points instead of relying on chat history alone. |
+| Memory tied to one tutor or provider is difficult for another agent to use. | **An open protocol:** give compatible agents a shared way to interpret the same user-owned files. |
+| A tutor's course structure may not fit a spontaneous question or topic change. | **Flexible teaching:** keep topics open; courses, assessments, and projects are optional. |
+| Reading an explanation can be mistaken for understanding it. | **Evidence-aware memory:** distinguish material presented, learner self-report, and demonstrated performance. |
+| Code, slides, and experiments become detached from the conversation that gave them meaning. | **Linked projects and artifacts:** preserve sources, purpose, and connections to the learning record. |
+
+These are possible limitations of chat-based or app-specific learning workflows,
+not a claim that every teaching tool has each limitation. Open Teacher makes these
+choices explicit in a portable contract rather than requiring a particular tutor.
+
 ## Choose your agent. Keep your progress.
 
 **Open Teacher does not teach on its own. Your chosen agent does.**

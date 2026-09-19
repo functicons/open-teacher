@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+<title id="title">Why Open Teacher: learning problems shape the design</title>
+<desc id="desc">Context gaps lead to persistent records; app-specific memory leads to an open protocol; fixed courses lead to flexible topics; unsupported learning claims lead to scoped evidence; scattered outputs lead to linked projects and artifacts. These are possible failure modes, not claims about every chatbot or tutor.</desc>
+<rect width="1200" height="900" fill="white"/>
+<g font-family="Arial, Helvetica, sans-serif" fill="#142e54">
+<text x="60" y="65" font-size="38" font-weight="700">Your learning should outlast the chat.</text>
+<text x="60" y="108" font-size="23" fill="#626c7a">Keep the journey when you change conversations, topics, or teachers.</text>
+<text x="60" y="163" font-size="20" font-weight="700" fill="#dc3545">THE LEARNING PROBLEM</text>
+<text x="685" y="163" font-size="20" font-weight="700" fill="#2563eb">THE DESIGN RESPONSE</text>
+<path d="M60 190H1140" stroke="#e5e7eb" stroke-width="1.5"/>
+<g transform="translate(60 214)" fill="none" stroke="#dc3545" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h42v29H22L10 43V32H3z"/><path d="M17 12l9 9m0-9-9 9"/></g>
+<g transform="translate(685 214)" fill="none" stroke="#2563eb" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h26l10 10v35H7zM33 2v10h10M16 22h18m-18 9h18m-18 9h12"/></g>
+<text x="130" y="230" font-size="25" font-weight="700">Context stays in one chat</text>
+<text x="755" y="230" font-size="25" font-weight="700">Persistent learning records</text>
+<text x="130" y="265" font-size="20" fill="#626c7a">The next conversation may miss</text><text x="130" y="293" font-size="20" fill="#626c7a">your questions and stopping point.</text>
+<text x="755" y="265" font-size="20" fill="#626c7a">Save useful context so another</text><text x="755" y="293" font-size="20" fill="#626c7a">session can pick up the thread.</text>
+<path d="M593 245h44m-10-10 10 10-10 10" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+<path d="M60 315H1140" stroke="#e5e7eb" stroke-width="1.5"/>
+<g transform="translate(60 339)" fill="none" stroke="#dc3545" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="21" width="38" height="26" rx="3"/><path d="M14 21V12a10 10 0 0 1 20 0v9M24 30v8"/></g>
+<g transform="translate(685 339)" fill="none" stroke="#2563eb" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="6"/><circle cx="8" cy="39" r="6"/><path d="M29 12h18v24H29zM14 9l15 10m-15 20 15-10"/></g>
+<text x="130" y="355" font-size="25" font-weight="700">Memory belongs to one app</text>
+<text x="755" y="355" font-size="25" font-weight="700">An open protocol</text>
+<text x="130" y="390" font-size="20" fill="#626c7a">Switching teachers can mean</text><text x="130" y="418" font-size="20" fill="#626c7a">rebuilding your learning history.</text>
+<text x="755" y="390" font-size="20" fill="#626c7a">Different agents can interpret</text><text x="755" y="418" font-size="20" fill="#626c7a">the same user-owned files.</text>
+<path d="M593 370h44m-10-10 10 10-10 10" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+<path d="M60 440H1140" stroke="#e5e7eb" stroke-width="1.5"/>
+<g transform="translate(60 464)" fill="none" stroke="#dc3545" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="14" height="12"/><rect x="17" y="19" width="14" height="12"/><rect x="32" y="36" width="14" height="12"/><path d="M9 14v11h8m7 6v11h8"/></g>
+<g transform="translate(685 464)" fill="none" stroke="#2563eb" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="7"/><path d="M24 17V2m-7 22H2m29 0h15M24 31v15M19 7l5-5 5 5m12 12 5 5-5 5"/></g>
+<text x="130" y="480" font-size="25" font-weight="700">A fixed course sets the path</text>
+<text x="755" y="480" font-size="25" font-weight="700">Follow your curiosity</text>
+<text x="130" y="515" font-size="20" fill="#626c7a">Your next question may lead</text><text x="130" y="543" font-size="20" fill="#626c7a">somewhere else entirely.</text>
+<text x="755" y="515" font-size="20" fill="#626c7a">Topics can change freely.</text><text x="755" y="543" font-size="20" fill="#626c7a">Courses and projects are optional.</text>
+<path d="M593 495h44m-10-10 10 10-10 10" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+<path d="M60 565H1140" stroke="#e5e7eb" stroke-width="1.5"/>
+<g transform="translate(60 589)" fill="none" stroke="#dc3545" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h42v29H22L10 43V32H3zM18 13q0-8 9-5 8 5-3 11v3"/><circle cx="24" cy="27" r="1"/></g>
+<g transform="translate(685 589)" fill="none" stroke="#2563eb" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h8m8 0h26M4 24h8m8 0h26M4 41h8m8 0h26"/><path d="M5 4v6m0 11v6m0 11v6"/></g>
+<text x="130" y="605" font-size="25" font-weight="700">An answer is not understanding</text>
+<text x="755" y="605" font-size="25" font-weight="700">Preserve learning evidence</text>
+<text x="130" y="640" font-size="20" fill="#626c7a">Reading an explanation alone</text><text x="130" y="668" font-size="20" fill="#626c7a">does not demonstrate learning.</text>
+<text x="755" y="640" font-size="20" fill="#626c7a">Distinguish exposure, self-report,</text><text x="755" y="668" font-size="20" fill="#626c7a">and performance with or without help.</text>
+<path d="M593 620h44m-10-10 10 10-10 10" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+<path d="M60 690H1140" stroke="#e5e7eb" stroke-width="1.5"/>
+<g transform="translate(60 714)" fill="none" stroke="#dc3545" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1h17v22H1zM29 8h17v22H29zM9 28h17v20H9z"/></g>
+<g transform="translate(685 714)" fill="none" stroke="#2563eb" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 1h21v13H14zM1 34h16v14H1zM32 34h16v14H32zM24 14v10H9v10m15-10h16v10"/></g>
+<text x="130" y="730" font-size="25" font-weight="700">Artifacts lose their context</text>
+<text x="755" y="730" font-size="25" font-weight="700">Link projects and artifacts</text>
+<text x="130" y="765" font-size="20" fill="#626c7a">Code and slides get separated</text><text x="130" y="793" font-size="20" fill="#626c7a">from why you made them.</text>
+<text x="755" y="765" font-size="20" fill="#626c7a">Keep sources, purpose, and</text><text x="755" y="793" font-size="20" fill="#626c7a">learning history connected.</text>
+<path d="M593 745h44m-10-10 10 10-10 10" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+<path d="M60 820H1140" stroke="#e5e7eb" stroke-width="1.5"/>
+<text x="600" y="864" text-anchor="middle" font-size="20" fill="#626c7a">An open protocol and plain files—used by the agent you choose.</text>
+</g></svg>
