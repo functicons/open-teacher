@@ -1,15 +1,16 @@
 # Open Teacher
 
-**Follow your curiosity. Keep your learning.**
+**Turn your AI agent into a teacher that remembers.**
 
-**An open standard for portable learning memory and AI teaching continuity.**
+Learn with Codex, Claude Code, or another compatible agent. Open Teacher helps it
+remember what you’ve explored, where you got stuck, and where to continue—even
+across conversations and agents.
 
-**Your agent. Your curiosity. Your learning history.**
+**An open standard for learning memory. Your agent teaches. Your files preserve the journey.**
 
-Learn with the AI agent you prefer, and keep a learning record you can take with
-you. Open Teacher defines how agents save useful context, understand what you
-have actually learned, and pick up where you left off. The records belong in your
-workspace, independent of any one conversation or provider.
+The standard defines how agents save useful context, interpret learning evidence,
+and pick up from the saved stopping point. The records belong in your workspace,
+independent of any one conversation or provider.
 
 Open Teacher is a specification, not an AI agent, model, or hosted tutoring app.
 This repository includes a reference workspace you can use with your existing

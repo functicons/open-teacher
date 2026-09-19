@@ -2,8 +2,11 @@
 
 The README uses two editable SVG illustrations:
 
-- `open_teacher_banner.svg`: Codex and Claude Code connected to shared learning
-  memory and learning artifacts. Blue, red, white, and gray palette.
+- `open_teacher_banner.svg`: “Turn your AI agent into a teacher that remembers.”
+  Codex and Claude Code connected to shared learning
+  memory containing learner context, knowledge, dated logs, optional projects,
+  and artifacts. The projects-to-artifacts connection shows grouping, not a
+  required course sequence. Blue, red, white, and gray palette.
 - `learning_flow.svg`: ask a question, save useful context, continue across chats.
 
 Both were authored directly as SVG on 2026-09-19, without image generation.
