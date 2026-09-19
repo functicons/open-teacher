@@ -18,24 +18,56 @@ the shared instructions and memory conventions; you choose the agent.
 
 ## Why
 
-A useful explanation, an unfinished question, or a project can get buried in one
-conversation. The next chat—or a different agent—may lack that context.
+A chatbot can explain an idea, but a conversation alone is not a durable learning
+record. What clicked, where you struggled, and what you built can stay scattered
+across chats. A dedicated teaching agent may retain that context, but if its memory
+belongs to one app, changing tools can mean rebuilding your learning history.
 
-- **Keep your progress:** preserve questions, attempts, and useful artifacts.
-- **Choose your teacher:** carry the same learning files between compatible agents.
-- **Follow your curiosity:** explore any topic without a required course or syllabus.
+**Your learning should outlast a chat—and remain yours when you change teachers.**
 
-[The problem and the idea →](docs/overview.md)
+| Learning problem | Why Open Teacher takes this approach |
+| --- | --- |
+| A new conversation lacks the useful context from earlier sessions. | **Persistent records:** save meaningful checkpoints, open questions, and stopping points instead of relying on chat history alone. |
+| Memory tied to one tutor or provider is difficult for another agent to use. | **An open protocol:** give compatible agents a shared way to interpret the same user-owned files. |
+| A tutor's course structure may not fit a spontaneous question or topic change. | **Flexible teaching:** keep topics open; courses, assessments, and projects are optional. |
+| Reading an explanation can be mistaken for understanding it. | **Evidence-aware memory:** distinguish material presented, learner self-report, and demonstrated performance. |
+| Code, slides, and experiments become detached from the conversation that gave them meaning. | **Linked projects and artifacts:** preserve sources, purpose, and connections to the learning record. |
+
+That is why Open Teacher is a protocol you bring to your preferred agent. The
+agent provides the model and tools; the reference workspace provides inspectable
+files without requiring a separate tutoring service or database.
+
+[Design rationale and examples →](docs/overview.md)
 
 ## How
 
-![Ask any question → save useful context and artifacts → continue with a compatible agent using the same files.](assets/learning_flow.svg)
+Open Teacher separates **the memory contract**, **reusable teaching instructions**,
+and **your personal learning files**. Your existing agent executes the workflow.
 
-The agent records meaningful checkpoints in your workspace: **learner context,
-knowledge, logs, projects, and artifacts**. The next agent reads the relevant files
-to continue. Records distinguish what was explained from what you demonstrated.
+```mermaid
+flowchart LR
+    P["Protocol<br/>PROTOCOL.md"] --> I["Shared instructions<br/>metadata/"]
+    E["Agent entry points<br/>Skill · AGENTS.md · CLAUDE.md"] --> I
+    I --> A["Your AI agent"]
+    A <-->|Read and update| M["Personal learning files<br/>user_data/"]
+```
 
-**No required server or database.** [How memory works →](docs/how_it_works.md)
+- **Protocol:** defines what records mean, how learning evidence is represented,
+  and what must survive a handoff. It allows different implementations and layouts.
+- **Shared instructions:** the reference workspace routes agents to the same
+  teaching and memory rules. The installable skill bundles those rules and blank
+  templates; it does not maintain a separate teaching policy.
+- **Persistent files:** Markdown records hold learner context, knowledge, dated
+  logs, and project state. Artifacts retain their editable sources and outputs.
+  Indexes and relative links connect them; personal data stays separate from the framework.
+
+At each session, the agent reads learner context and indexes, retrieves relevant
+records, then saves meaningful checkpoints as you learn. A new agent resumes from
+those files without needing the previous chat. **No required server or database**;
+file access, reasoning, and tools come from your chosen agent.
+
+[Technical design and memory lifecycle →](docs/how_it_works.md) ·
+[Protocol requirements →](PROTOCOL.md)
 
 ## Getting Started
 
