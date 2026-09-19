@@ -1,0 +1,19 @@
+# Local environments and caches; retain learning sources and useful outputs.
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local credentials. Add exceptions only for intentionally sanitized examples.
+.env
+.env.*
+!.env.example
+
+# Personal learning records stay local in this public framework.
+/user_data/
