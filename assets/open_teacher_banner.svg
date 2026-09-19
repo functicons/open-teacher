@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1440" height="880" viewBox="0 0 1440 880" role="img" aria-labelledby="title desc">
-  <title id="title">Open Teacher — Turn your AI agent into a teacher that remembers.</title>
+  <title id="title">Open Teacher — Any agent. Any topic. Your learning, remembered.</title>
   <desc id="desc">Turn Codex, Claude Code, or another compatible agent into a teacher that remembers through a shared learning workspace. It contains learner context, knowledge, dated logs, optional projects, and artifacts. Projects group related artifacts such as slides, code, and diagrams. Saved context lets another agent continue while you remain free to change topics.</desc>
   <defs>
     <marker id="blueArrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto-start-reverse"><path d="M1 1L6 4L1 7" fill="none" stroke="#2563eb" stroke-width="1.6"/></marker>
@@ -10,7 +10,7 @@
   <rect width="1440" height="880" fill="#fff"/>
   <g font-family="Arial, Helvetica, sans-serif" fill="#142e54">
     <text x="720" y="98" text-anchor="middle" font-size="72" font-weight="700" letter-spacing="-3">Open Teacher</text>
-    <text x="720" y="151" text-anchor="middle" font-size="36" font-weight="700">Turn your AI agent into a teacher that remembers.</text>
+    <text x="720" y="151" text-anchor="middle" font-size="36" font-weight="700">Any agent. Any topic. Your learning, remembered.</text>
     <path d="M60 190H1380" stroke="#e5e7eb" stroke-width="2"/>
 
     <!-- Interchangeable agents use the same learner-owned workspace. -->
@@ -68,7 +68,7 @@
     <text x="920" y="666" text-anchor="middle" font-size="20" fill="#626c7a">Continue from saved context — or follow a new question.</text>
 
     <path d="M60 735H1380" stroke="#e5e7eb" stroke-width="2"/>
-    <text x="720" y="790" text-anchor="middle" font-size="32" font-weight="700">Any topic. Any compatible agent. Pick up where you left off.</text>
-    <text x="720" y="835" text-anchor="middle" font-size="20" fill="#626c7a">An open standard for learning memory. Your agent teaches. Your files preserve the journey.</text>
+    <text x="720" y="790" text-anchor="middle" font-size="32" font-weight="700">Your agent teaches. Your files preserve the journey.</text>
+    <text x="720" y="835" text-anchor="middle" font-size="20" fill="#626c7a">An open protocol for persistent learning memory across AI agents.</text>
   </g>
 </svg>

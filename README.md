@@ -1,6 +1,6 @@
 # Open Teacher
 
-**Turn your AI agent into a teacher that remembers.**
+**An open protocol for persistent learning memory across AI agents.**
 
 ![Turn Codex or Claude Code into a teacher that remembers your learning journey: learner context, knowledge, logs, projects, and artifacts.](assets/open_teacher_banner.svg)
 

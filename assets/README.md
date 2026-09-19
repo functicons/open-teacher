@@ -2,7 +2,7 @@
 
 The README uses two editable SVG illustrations:
 
-- `open_teacher_banner.svg`: “Turn your AI agent into a teacher that remembers.”
+- `open_teacher_banner.svg`: “Any agent. Any topic. Your learning, remembered.”
   Codex and Claude Code connected to shared learning
   memory containing learner context, knowledge, dated logs, optional projects,
   and artifacts. The projects-to-artifacts connection shows grouping, not a
