@@ -1,9 +1,10 @@
-# Open Teacher Protocol
+# Open Teacher Specification
 
 **Version:** 0.1 · **Status:** draft community proposal
 
-Open Teacher describes a portable contract between a learner, a file-capable AI
-agent, and a durable learning workspace. It supports spontaneous conversations
+Open Teacher is a draft open standard for portable learning memory and teaching
+continuity. It defines a protocol between a learner, a file-capable AI agent, and
+a durable learning workspace. It supports spontaneous conversations
 across arbitrary subjects. Its purpose is continuity with trustworthy records,
 not enforcing a curriculum.
 
@@ -23,6 +24,51 @@ An implementation MUST identify its protocol version and an entry point that
 explains where its shared instructions and records live. This repository provides
 `AGENTS.md` and a `CLAUDE.md` adapter. An adapter MUST NOT maintain a conflicting
 teaching policy or require private chat history to reconstruct saved state.
+
+### 1.1 Producers, consumers, and portability
+
+A **producer** writes learning records; a **consumer** retrieves and interprets
+them. A teaching agent can act as both. Implementations MAY provide different
+interfaces, teaching methods, and storage layouts while preserving this contract.
+
+A portable workspace MUST expose a human-readable entry point declaring the draft
+version, the shared instructions, and links or explicit relative paths to the
+record responsibilities in section 3. In this reference implementation, start at
+`AGENTS.md`; it links to instructions describing the layout. Another implementation
+MUST document its entry point and layout mapping rather than expect a consumer to
+know private conventions.
+
+A producer MUST preserve the distinction between explanations and learner evidence,
+including attribution, assistance, dates, corrections, and continuation context.
+A consumer MUST read those distinctions rather than silently promote exposure into
+mastery or a suggestion into a learner commitment. When transferring records,
+implementations MUST preserve those meanings and either keep links working or
+explicitly identify unavailable referenced material. Optional private caches MUST
+NOT be needed to interpret the transferred essential state.
+
+Consumers MUST NOT silently discard unfamiliar fields or sections when updating a
+record. If a consumer cannot interpret a version or required evidence distinction,
+it MUST disclose that limitation instead of claiming a complete handoff. Automated
+conversion MAY be provided but MUST NOT erase evidence merely to fit a new schema.
+
+Draft 0.1 standardizes record semantics and agent behavior, not a universal JSON
+schema, transport API, or synchronization service. Markdown and natural-language
+layout discovery support human and agent consumers. Deterministic import/export
+formats can be specified as future extensions; they are not claimed here.
+
+### 1.2 Specification versus implementation
+
+This document is normative. The operational instructions and templates are a
+reference implementation, not additional requirements on all implementations.
+A claimed implementation MUST identify the draft version and satisfy its MUST
+requirements, with any limitations documented. Passing selected checks is not
+certification. Required semantics MUST remain intact even when filenames, note
+headings, or optional methods differ.
+
+The [Open Knowledge Format](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md)
+is a complementary knowledge format. Open Teacher addresses a learner's history,
+evidence and continuity; its reference knowledge notes use OKF, but the standard
+does not require it. This is an independent project with no implied affiliation.
 
 ## 2. Let the learner lead
 

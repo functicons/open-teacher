@@ -1,6 +1,7 @@
 # How Open Teacher works
 
-The agent provides the conversation and reasoning. Ordinary files preserve the
+Open Teacher is the standard; this repository also includes one reference
+implementation. The agent provides the conversation and reasoning. Ordinary files preserve the
 useful context. The [protocol](../PROTOCOL.md) supplies a common agreement about
 reading and maintaining those files; the [shared instructions](../metadata/teacher_instructions.md)
 implement it for this repository.

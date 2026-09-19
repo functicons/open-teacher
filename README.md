@@ -6,14 +6,32 @@
 
 **Follow your curiosity. Keep your learning.**
 
-An open, file-based protocol for AI learning companions with persistent memory.
-Explore any topic, save what matters, and bring your learning history to your next
-conversation—even with a different agent.
+**An open standard for portable learning memory and AI teaching continuity.**
 
-[Get started](#start-with-one-question) · [Read the protocol](PROTOCOL.md) ·
+Open Teacher specifies how agents record, interpret, and carry forward a learner's
+journey. Any topic. Any teaching approach. A shared record that can outlast a chat
+and move between tools.
+
+This repository contains the draft specification and a ready-to-use reference
+implementation. You can use the included workspace or implement the standard in
+your own agent, editor, or learning tool.
+
+[Read the specification](PROTOCOL.md) · [Try the reference workspace](#start-with-one-question) ·
 [How it works](docs/how_it_works.md) · [Contribute](CONTRIBUTING.md)
 
 **Draft 0.1 · MIT licensed · Plain files · No required server or database**
+
+## The standard and its reference implementation
+
+| Layer | What it defines | Where to start |
+| --- | --- | --- |
+| **Open Teacher standard** | Shared meaning for learner context, learning evidence, history, artifacts, and continuation; rules for reading, updating, and handing them off | [Draft specification](PROTOCOL.md) |
+| **Reference implementation** | One directory layout, agent instructions, optional templates, and teaching skills that implement the standard | [Use this workspace](#start-with-one-question) |
+| **Your implementation** | Your agent, interface, storage layout, and teaching methods, preserving the same record semantics and learner control | [Implementer guidance](PROTOCOL.md#11-producers-consumers-and-portability) |
+
+The standard specifies what must survive a handoff. It leaves the learning
+conversation open. You do not need to adopt this repository's exact folder names,
+use a particular model, or run a particular application.
 
 ## Your curiosity does not need a syllabus
 
@@ -84,7 +102,8 @@ The protocol defines how to retrieve context, save meaningful checkpoints,
 attribute learning evidence, and resume across agents. It does not prescribe a
 subject, lesson sequence, teaching persona, or fixed conversation format.
 
-This repository is the **reference implementation**: instructions, optional
+Alongside the specification, this repository ships a **reference implementation**:
+instructions, optional
 templates, a teaching skill, and a handoff checklist. No additional service is
 required by the framework. Optional artifact tools may have their own dependencies.
 
@@ -108,8 +127,11 @@ user_data/                 Created locally for you; ignored by Git
 
 Templates help agents organize records; you do not need to fill them out.
 The [reference knowledge format](metadata/templates/knowledge_note.md) uses a
-small OKF v0.2 convention. The core protocol does not require that schema or
-make every record a knowledge-base entry.
+small [OKF v0.2](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md)
+convention. OKF specifies knowledge representation; Open Teacher specifies learning
+records and the agent behavior needed to preserve their meaning. They can be used
+together. Open Teacher is independent of OKF and does not require all records to
+use its schema.
 
 ## Honest memory, not automatic mastery
 
@@ -122,9 +144,10 @@ protocol. It cannot recover unsaved conversations, guarantee every write, or syn
 different computers automatically. Local storage also does not mean your chosen
 AI provider never receives content. [Compatibility and limits](docs/compatibility.md).
 
-## Help shape an open protocol
+## Help shape the open standard
 
-Draft 0.1 is a community proposal, not a ratified standard or a certification.
+Open Teacher is an open standard in development. Draft 0.1 is its initial proposal;
+it does not claim formal ratification, established adoption, or certification.
 The entry points are designed for file-capable agents; a compatibility claim
 should be backed by a documented handoff trial.
 
