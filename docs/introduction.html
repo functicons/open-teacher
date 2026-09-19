@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="data:,">
+  <title>Open Teacher — Your AI. Your learning. Your files.</title>
+  <style>
+    /* ============================================================
+       EXECUTIVE-TECHNICAL DECK — design tokens
+       Palette is semantic. Do not add colors; reassign meaning instead.
+         blue  = the baseline / the population / the method
+         coral = the subject under investigation / the answer / "look here"
+         amber = thresholds, caution, rarity  (ration it: <1 use per slide)
+       ============================================================ */
+    :root {
+      --paper: #fbfaf6;
+      --paper-deep: #f0eee7;
+      --ink: #15233b;
+      --muted: #647086;
+      --blue: #1769c2;
+      --blue-deep: #0c427e;
+      --blue-soft: #dcecfb;
+      --coral: #e35d50;
+      --coral-soft: #f9ddd8;
+      --amber: #e0a022;
+      --amber-soft: #f8e9bd;
+      --neutral: #e8edf2;
+      --neutral-deep: #aab5c4;
+      --rule: #cfd6df;
+      --grid: #dde2e8;
+      --good: #6685a8;
+
+      --display: "Avenir Next", Avenir, "Helvetica Neue", sans-serif;
+      --body: Avenir, "Avenir Next", "Helvetica Neue", sans-serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+      /* Type scale — use these, do not invent intermediate sizes. */
+      --fs-mega: 5.05rem;   /* cover title */
+      --fs-h1: 4.35rem;
+      --fs-h2: 2.92rem;
+      --fs-hero: 3rem;      /* the answer numeral */
+      --fs-xl: 2.35rem;     /* display question / statement / big stat */
+      --fs-lg: 1.65rem;     /* formula line, verdict, row numerals */
+      --fs-md: 1.25rem;     /* emphasis numerals inside rows */
+      --fs-body: 0.95rem;   /* prose */
+      --fs-sm: 0.8rem;      /* secondary prose, captions */
+      --fs-xs: 0.68rem;     /* uppercase micro-labels */
+      --fs-xxs: 0.6rem;     /* chips, footnotes */
+
+      /* Weight ramp — four steps only. */
+      --w-regular: 400;
+      --w-semi: 600;
+      --w-bold: 700;
+      --w-black: 800;
+
+      /* Spacing scale */
+      --s1: 0.4rem; --s2: 0.7rem; --s3: 1rem; --s4: 1.4rem;
+      --s5: 2rem;  --s6: 3rem;  --s7: 4.2rem;
+
+      --shadow: 0 2rem 5rem rgba(21, 35, 59, 0.16);
+    }
+
+    /* Root font-size drives the whole deck. Everything below is in rem, so
+       this single line makes the deck scale to any viewport while holding
+       16:9. At 1600x900 it resolves to exactly 16px. */
+    html { font-size: min(1vw, 1.7778vh); }
+
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; }
+
+    body {
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: var(--ink);
+      background: #d9dee6;
+      font-family: var(--body);
+    }
+
+    button { font: inherit; }
+
+    .deck {
+      position: relative;
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      overflow: hidden;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .progress {
+      position: absolute; top: 0; left: 0; z-index: 20;
+      width: 0; height: 0.32rem;
+      background: var(--blue);
+      transition: width 260ms ease;
+    }
+
+    /* ---------- slide chassis: header / stage / footer ---------- */
+    .slide {
+      position: absolute; inset: 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 1.9rem;
+      padding: 3.1rem 4.5rem 2.6rem;
+      overflow: hidden;
+      opacity: 0; visibility: hidden;
+      transform: translateX(2.5%);
+      background: var(--paper);
+      transition: opacity 220ms ease, transform 300ms ease, visibility 0s linear 300ms;
+    }
+    .slide.active {
+      z-index: 2; opacity: 1; visibility: visible;
+      transform: translateX(0); transition-delay: 0s;
+    }
+    .slide.previous { transform: translateX(-2.5%); }
+
+    .slide-header { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: var(--s5); }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2 { margin-bottom: 0; font-family: var(--display); font-weight: var(--w-semi); letter-spacing: -0.03em; }
+    h1 { font-size: var(--fs-h1); line-height: 0.99; }
+    h2 { max-width: 74rem; font-size: var(--fs-h2); line-height: 1.03; }
+    h3 { margin-bottom: 0.55rem; color: var(--blue-deep); font-size: 1rem; line-height: 1.15; letter-spacing: 0.08em; text-transform: uppercase; }
+    p { margin-bottom: 0; font-size: 1.26rem; line-height: 1.5; }
+
+    /* The eyebrow is a numbered MOVE, not a topic: "04 · Understand coverage" */
+    .eyebrow {
+      margin: 0 0 0.62rem;
+      color: var(--blue);
+      font-size: 0.76rem; font-weight: var(--w-bold);
+      letter-spacing: 0.14em; line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .lead { color: var(--muted); font-size: 1.45rem; line-height: 1.42; }
+    .accent { color: var(--blue); }
+    .alert { color: var(--coral); }
+    .muted { color: var(--muted); }
+    .mono { font-family: var(--mono); }
+    .nowrap { white-space: nowrap; }
+
+    /* Footer carries the caveat, the exact formula, the source. Body stays confident. */
+    .slide-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      min-height: 1.2rem;
+      gap: 1.5rem;
+      padding-right: 9.5rem; /* clears the nav widget */
+      color: var(--muted); font-size: var(--fs-xs); letter-spacing: 0.02em;
+    }
+    .slide-footer::before {
+      content: attr(data-rail);
+      flex: none; white-space: nowrap;   /* a long caveat must not wrap the rail */
+      font-weight: var(--w-bold); letter-spacing: 0.11em;
+    }
+    .source-link { color: var(--muted); text-decoration: none; }
+
+    /* ============================================================
+       STAGE LAYOUTS
+       ============================================================ */
+    /* The workhorse: evidence left, argument right. */
+    .split-stage {
+      display: grid;
+      grid-template-columns: minmax(40rem, 1.12fr) minmax(25rem, 0.88fr);
+      align-items: center;
+      gap: var(--s7);
+      min-height: 0;
+    }
+    .split-stage.even { grid-template-columns: 1fr 1fr; }
+    .split-stage.wide-left { grid-template-columns: minmax(45rem, 1.3fr) minmax(22rem, 0.7fr); }
+    .stage { display: grid; align-content: center; gap: var(--s4); min-height: 0; }
+    .stage.top { align-content: start; }   /* tables and tall devices read better top-aligned */
+    .stage-rows { display: grid; grid-template-rows: auto 1fr; gap: var(--s4); min-height: 0; }
+
+    .evidence { display: grid; align-content: center; gap: var(--s4); min-width: 0; }
+    .argument { display: grid; align-content: center; gap: var(--s3); min-width: 0; }
+
+    /* ---------- the argument ladder (right column) ---------- */
+    .kicker { color: var(--blue); font-size: 0.78rem; font-weight: var(--w-bold); letter-spacing: 0.12em; text-transform: uppercase; }
+    .question { color: var(--ink); font-family: var(--display); font-size: var(--fs-xl); font-weight: var(--w-semi); line-height: 1.08; letter-spacing: -0.025em; text-transform: none; margin-bottom: 0; }
+    .definition { padding-left: var(--s3); border-left: 4px solid var(--blue); color: var(--muted); font-size: var(--fs-body); line-height: 1.42; }
+    .definition strong { color: var(--ink); }
+    .definition.alert-edge { border-left-color: var(--coral); }
+
+    /* hairline reading rows: label | explanation */
+    .reading { display: grid; grid-template-columns: 7.4rem 1fr; align-items: baseline; gap: var(--s3); padding-block: 0.8rem; border-top: 1px solid var(--rule); }
+    .reading b { color: var(--blue-deep); font-family: var(--display); font-size: var(--fs-lg); line-height: 1; white-space: nowrap; }
+    .reading span { color: var(--muted); font-size: var(--fs-sm); line-height: 1.35; }
+    .reading span strong { color: var(--blue-deep); font-weight: var(--w-bold); }
+    .reading.hot b, .reading.hot span strong { color: var(--coral); }
+    .reading.wide { grid-template-columns: 10.5rem 1fr; }  /* long labels overlap the 7.4rem default */
+
+    /* the "yes, but" block — states the limit of what was just shown */
+    .tension { display: grid; gap: var(--s2); padding-block: 0.9rem; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .tension-line { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); }
+    .tension-line span { color: var(--muted); font-size: var(--fs-sm); font-weight: var(--w-bold); letter-spacing: 0.05em; text-transform: uppercase; }
+    .tension-line strong { color: var(--coral); font-family: var(--display); font-size: var(--fs-hero); line-height: 0.9; }
+    .tension-line strong.cool { color: var(--blue); }
+    .tension p { color: var(--muted); font-size: var(--fs-sm); line-height: 1.35; }
+
+    /* the closing line — the sentence you want remembered */
+    .verdict { color: var(--coral); font-family: var(--display); font-size: var(--fs-lg); line-height: 1.15; }
+    .verdict.cool { color: var(--blue-deep); }
+
+    /* ============================================================
+       DEVICE 1 — subject line + formula strip
+       ============================================================ */
+    .subject-line { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); padding-bottom: 0.75rem; border-bottom: 1px solid var(--rule); }
+    .subject-line span { color: var(--muted); font-size: 0.72rem; font-weight: var(--w-bold); letter-spacing: 0.1em; text-transform: uppercase; }
+    .subject-line b { color: var(--blue-deep); font-family: var(--mono); font-size: 1rem; }
+
+    /* Always ends in the highlighted answer. The <small> carries the equivalence. */
+    .formula-line { padding: 0.8rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); color: var(--blue-deep); font-family: var(--display); font-size: var(--fs-lg); line-height: 1.2; text-align: center; }
+    .formula-line strong { color: var(--blue); font-size: 2.15rem; }
+    .formula-line strong.hot { color: var(--coral); }
+    .formula-line small { display: block; margin-top: 0.45rem; color: var(--muted); font-family: var(--mono); font-size: var(--fs-xs); line-height: 1.3; }
+    .formula-line small b { color: var(--blue-deep); font-family: var(--body); font-weight: var(--w-bold); }
+
+    /* ============================================================
+       DEVICE 2 — proportion dials (compare ONE quantity in TWO populations)
+       Drive with style="--share:72%"
+       ============================================================ */
+    .dial-pair { display: grid; grid-template-columns: 1fr 7rem 1fr; align-items: center; justify-items: center; gap: var(--s2); }
+    .dial-wrap { display: grid; justify-items: center; gap: 0.55rem; }
+    .dial {
+      position: relative; display: grid; place-items: center;
+      width: 12.3rem; aspect-ratio: 1;
+      border: 2px solid var(--neutral-deep); border-radius: 50%;
+      background: conic-gradient(from -90deg, var(--blue) 0 var(--share), var(--neutral) var(--share) 100%);
+    }
+    .dial.subject { border: 5px solid var(--coral); }
+    .dial::after { content: ""; position: absolute; width: 46%; aspect-ratio: 1; border-radius: 50%; background: rgba(251,250,246,0.96); }
+    .dial b { position: relative; z-index: 1; color: var(--ink); font-family: var(--display); font-size: 2.25rem; line-height: 1; }
+    .dial-wrap > span { color: var(--muted); font-size: 0.74rem; font-weight: var(--w-bold); letter-spacing: 0.05em; text-align: center; text-transform: uppercase; }
+    .dial-wrap.subject > span { color: var(--coral); }
+    /* the relation between the two dials lives BETWEEN them */
+    .relation { display: grid; justify-items: center; gap: 0.25rem; color: var(--blue); }
+    .relation b { font-family: var(--display); font-size: 3.35rem; line-height: 0.9; }
+    .relation span { color: var(--muted); font-family: var(--mono); font-size: var(--fs-xs); line-height: 1.3; text-align: center; }
+
+    /* ============================================================
+       DEVICE 3 — decomposition bar (observed = expected + surplus + rest)
+       Only the surplus is saturated. Widths via inline grid-template-columns.
+       ============================================================ */
+    .decomp-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); }
+    .decomp-head span { color: var(--muted); font-size: 0.75rem; font-weight: var(--w-bold); letter-spacing: 0.1em; text-transform: uppercase; }
+    .decomp-head strong { color: var(--blue-deep); font-family: var(--display); font-size: 1.5rem; }
+    .decomp-bar { display: grid; height: 7.6rem; overflow: hidden; border: 1px solid var(--rule); }
+    .decomp-seg { display: grid; place-content: center; gap: 0.2rem; min-width: 0; text-align: center; }
+    .decomp-seg b { font-family: var(--display); font-size: 2.25rem; line-height: 0.95; }
+    .decomp-seg span { font-size: 0.73rem; font-weight: var(--w-bold); letter-spacing: 0.08em; text-transform: uppercase; }
+    .decomp-seg.expected { color: var(--blue-deep); background: var(--blue-soft); }
+    .decomp-seg.surplus  { color: white; background: var(--coral); }
+    .decomp-seg.rest     { color: var(--muted); background: var(--neutral); }
+    .decomp-sum { display: flex; align-items: baseline; justify-content: center; gap: 0.55rem; color: var(--muted); font-size: 0.9rem; }
+    .decomp-sum strong { color: var(--blue); font-family: var(--display); font-size: var(--fs-xl); }
+    .decomp-sum b { color: var(--blue-deep); }
+    .decomp-sum em { color: var(--coral); font-style: normal; font-weight: var(--w-bold); }
+
+    /* ============================================================
+       DEVICE 4 — reach track (a thin bar that undercuts a big number)
+       ============================================================ */
+    .reach { height: 1.15rem; overflow: hidden; border: 1px solid var(--rule); background: var(--neutral); }
+    .reach span { display: block; width: var(--reach); height: 100%; background: var(--coral); }
+    .reach.cool span { background: var(--blue); }
+
+    /* ============================================================
+       DEVICE 5 — small multiples (identical device, varying data)
+       The top rule ranks them: neutral / blue = strong / amber = caveat
+       ============================================================ */
+    .cases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.2rem; min-height: 0; }
+    .case { display: grid; grid-template-rows: auto 1fr auto; align-items: center; gap: 0.85rem; padding-top: 0.9rem; border-top: 5px solid var(--neutral-deep); min-width: 0; }
+    .case.strong { border-top-color: var(--blue); }
+    .case.caveat { border-top-color: var(--amber); }
+    .case-title { display: grid; gap: 0.24rem; min-height: 3.2rem; }
+    .case-title b { font-family: var(--mono); font-size: 0.86rem; line-height: 1.25; }
+    .case-title span { color: var(--muted); font-size: var(--fs-sm); }
+    .case .dial-pair { grid-template-columns: 1fr auto 1fr; gap: 0.55rem; }
+    .case .dial { width: 8.35rem; }
+    .case .dial b { font-size: 1.75rem; }
+    .case-arrow { color: var(--blue); font-size: var(--fs-xl); font-weight: var(--w-bold); }
+    .case-result { display: grid; gap: 0.45rem; padding-top: 0.8rem; border-top: 1px solid var(--rule); }
+    .case-line { display: flex; align-items: baseline; justify-content: space-between; gap: 0.6rem; }
+    .case-line span { color: var(--muted); font-size: 0.75rem; font-weight: var(--w-semi); letter-spacing: 0.05em; text-transform: uppercase; }
+    .case-line b { font-family: var(--display); font-size: 1.75rem; line-height: 1; }
+    .case-line b.primary { color: var(--blue); }
+    .case-line b.hot { color: var(--coral); }
+    .case-result p { color: var(--muted); font-size: var(--fs-sm); line-height: 1.35; }
+
+    /* ============================================================
+       DEVICE 6 — judged rows (candidate | track | value | decision)
+       Turns an algorithm into a visible verdict. --v drives the fill,
+       --cut positions the threshold marker.
+       ============================================================ */
+    .judge { display: grid; align-content: center; gap: 0.75rem; min-width: 0; }
+    .judge-head, .judge-row { display: grid; grid-template-columns: 12rem 1fr 5.4rem 5rem; align-items: center; gap: 0.65rem; }
+    .judge-head { color: var(--muted); font-size: var(--fs-xxs); font-weight: var(--w-bold); letter-spacing: 0.07em; line-height: 1.2; text-transform: uppercase; }
+    .judge-head span:nth-child(3), .judge-head span:nth-child(4) { text-align: right; }
+    .judge-rows { display: grid; gap: 0.56rem; padding-block: 0.85rem; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .judge-row { min-height: 3.4rem; }
+    .judge-name { color: var(--blue-deep); font-family: var(--mono); font-size: 0.72rem; font-weight: var(--w-bold); line-height: 1.24; overflow-wrap: anywhere; }
+    .judge-track { position: relative; height: 1.18rem; border: 1px solid var(--rule); background: var(--neutral); }
+    .judge-track::after { content: ""; position: absolute; z-index: 2; top: -0.25rem; bottom: -0.25rem; left: var(--cut, 50%); border-left: 2px solid rgba(227,93,80,0.8); }
+    .judge-track i { display: block; width: var(--v); height: 100%; background: var(--blue); }
+    .judge-row.reject .judge-track i { background: #9ca8b6; }
+    .judge-value { color: var(--blue-deep); font-family: var(--display); font-size: var(--fs-md); text-align: right; }
+    .judge-row.reject .judge-value { color: var(--muted); }
+    .judge-row.keep .judge-value { color: var(--coral); }
+    .judge-chip { justify-self: end; padding: 0.32rem 0.48rem; border: 1px solid var(--blue); color: var(--blue); font-size: var(--fs-xxs); font-weight: var(--w-black); letter-spacing: 0.07em; text-align: center; text-transform: uppercase; }
+    .judge-row.reject .judge-chip { border-color: var(--rule); color: var(--muted); }
+    .judge-row.keep .judge-chip { border-color: var(--coral); color: var(--coral); }
+    .judge-legend { display: flex; justify-content: flex-end; gap: 0.42rem; color: var(--muted); font-size: 0.65rem; line-height: 1.25; }
+    .judge-legend i { display: inline-block; width: 2px; height: 1rem; background: var(--coral); }
+    .judge-legend strong { color: var(--coral); }
+
+    /* ============================================================
+       DEVICE 7 — level tree (breadth by level, with the rule on the arrow)
+       ============================================================ */
+    .tree { display: grid; align-content: center; gap: 0.75rem; min-width: 0; }
+    .tree-level { display: grid; gap: 0.55rem; }
+    .tree-level-name { color: var(--muted); font-size: var(--fs-xs); font-weight: var(--w-bold); letter-spacing: 0.1em; text-transform: uppercase; }
+    .tree-row { display: grid; align-items: stretch; gap: 0.75rem; }
+    .tree-row.n4 { grid-template-columns: repeat(4, 1fr); }
+    .tree-row.n3 { grid-template-columns: repeat(3, 1fr); margin-inline: 2.8rem; }
+    .tree-row.n1 { grid-template-columns: minmax(18rem, 0.52fr); justify-content: center; }
+    .node { display: grid; align-content: center; gap: 0.4rem; min-height: 4.75rem; padding: 0.65rem 0.7rem; border-top: 4px solid var(--blue); border-bottom: 1px solid var(--rule); background: white; }
+    .node b { font-family: var(--mono); font-size: 0.75rem; line-height: 1.25; overflow-wrap: anywhere; }
+    .node span { color: var(--muted); font-size: 0.72rem; line-height: 1.25; }
+    .node.hot { border-top-color: var(--coral); background: var(--coral-soft); }
+    .node.hot b, .node.hot span { color: var(--coral); }
+    .node.caveat { border-top-color: var(--amber); background: var(--amber-soft); }
+    .node.caveat span { color: #8f650f; }
+    .node.stop { border-top-color: var(--muted); opacity: 0.72; }
+    /* the arrow carries the RULE that moves you between levels */
+    .tree-step { display: grid; justify-items: center; gap: 0.1rem; color: var(--blue); font-size: var(--fs-lg); font-weight: var(--w-black); line-height: 1; }
+    .tree-step span { color: var(--muted); font-size: var(--fs-xs); font-weight: var(--w-bold); letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* ============================================================
+       DEVICE 8 — parallel lanes (contrast two operators/paths structurally)
+       ============================================================ */
+    .lane { display: grid; gap: 0.65rem; padding-top: 0.78rem; border-top: 4px solid var(--blue); }
+    .lane.alt { border-top-color: var(--coral); }
+    .lane-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); }
+    .lane-head strong { color: var(--blue); font-family: var(--display); font-size: var(--fs-xl); line-height: 1; }
+    .lane.alt .lane-head strong { color: var(--coral); }
+    .lane-head span { color: var(--muted); font-size: var(--fs-xs); font-weight: var(--w-semi); letter-spacing: 0.08em; text-transform: uppercase; }
+    .lane-row { display: grid; grid-template-columns: 1fr 2.2rem 1fr 2.2rem 1.15fr; align-items: center; gap: 0.45rem; }
+    .token { display: grid; align-content: center; gap: 0.25rem; min-height: 4.25rem; padding: 0.58rem 0.65rem; border-bottom: 1px solid var(--rule); background: white; }
+    .token span { color: var(--muted); font-size: var(--fs-xxs); font-weight: var(--w-semi); letter-spacing: 0.07em; text-transform: uppercase; }
+    .token b { color: var(--blue-deep); font-family: var(--mono); font-size: 0.72rem; line-height: 1.25; overflow-wrap: anywhere; }
+    .token.result { border-left: 5px solid var(--blue); background: var(--blue-soft); }
+    .lane.alt .token.result { border-left-color: var(--coral); background: var(--coral-soft); }
+    .lane.alt .token.result b { color: var(--coral); }
+    .lane-op { color: var(--blue); font-family: var(--display); font-size: var(--fs-xl); text-align: center; }
+    .lane.alt .lane-op { color: var(--coral); }
+    .lane-to { color: var(--muted); font-size: 1.4rem; font-weight: var(--w-black); text-align: center; }
+    .lane-note { color: var(--muted); font-size: 0.72rem; line-height: 1.32; }
+    .lane-note strong { color: var(--ink); }
+
+    /* ============================================================
+       DEVICE 9 — ranked table (exactly one winner row)
+       ============================================================ */
+    .data-table { width: 100%; border-collapse: collapse; table-layout: fixed; background: white; font-variant-numeric: tabular-nums; }
+    .data-table thead { border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+    .data-table th { padding: 0.82rem 0.7rem; color: var(--muted); font-size: var(--fs-xs); font-weight: var(--w-bold); letter-spacing: 0.08em; text-align: right; text-transform: uppercase; }
+    .data-table th:first-child { text-align: left; }
+    .data-table td { padding: 0.86rem 0.7rem; border-bottom: 1px solid var(--rule); font-size: 0.9rem; text-align: right; }
+    .data-table td:first-child { font-family: var(--mono); text-align: left; }
+    .data-table tr.winner { background: var(--coral-soft); }
+    .data-table tr.winner td:first-child { color: var(--coral); font-weight: var(--w-bold); }
+    .data-table tr.caveat td:nth-child(4) { color: var(--amber); font-weight: var(--w-bold); }
+    .table-note { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 1.1rem; margin-top: 1.2rem; color: var(--muted); font-size: 0.88rem; }
+    .table-note b { color: var(--coral); font-family: var(--display); font-size: 2.2rem; }
+
+    /* ============================================================
+       DEVICE 10 — stat pair / magnitude reduction
+       ============================================================ */
+    .magnitudes { display: grid; grid-template-columns: 1fr 4.5rem 1fr; align-items: end; gap: 0.8rem; }
+    .magnitude { display: grid; gap: 0.2rem; }
+    .magnitude strong { color: var(--coral); font-family: var(--display); font-size: 3.8rem; line-height: 0.86; letter-spacing: -0.03em; }
+    .magnitude.after strong { color: var(--blue); }
+    .magnitude span { color: var(--muted); font-size: 0.86rem; line-height: 1.3; }
+    .magnitude-arrow { color: var(--blue); font-size: 2.8rem; font-weight: var(--w-black); text-align: center; }
+
+    /* ============================================================
+       DEVICE 11 — typed sequence (.chain)
+       A list of steps where each step's TYPE is the point. The rule colour
+       carries the classification, so no legend is needed.
+       Note: no text-transform here — uppercase mangles notation like
+       [T×d]·[d×3d] into [T×D]·[D×3D].
+       ============================================================ */
+    .chain { display: grid; gap: 0.5rem; }
+    .chain-step { display: grid; grid-template-columns: 1.7rem 1fr auto; align-items: center; gap: 0.8rem; min-height: 3.1rem; padding: 0.5rem 0.85rem; border-left: 5px solid var(--blue); background: white; }
+    .chain-step.soft { border-left-color: var(--neutral-deep); background: transparent; }
+    .chain-step > b { color: var(--blue); font-family: var(--display); font-size: 1.15rem; line-height: 1; }
+    .chain-step.soft > b { color: var(--muted); }
+    .chain-step strong { color: var(--blue-deep); font-family: var(--mono); font-size: 0.84rem; }
+    .chain-step.soft strong { color: var(--muted); }
+    .chain-step span { color: var(--muted); font-family: var(--mono); font-size: 0.68rem; }
+
+    /* Wrapper for a hand-drawn SVG schematic. Needs an explicit height or the
+       SVG collapses inside a centred stage. */
+    .diagram { height: 26rem; min-height: 0; }
+    .diagram > svg { display: block; width: 100%; height: 100%; }
+    .diagram text { font-family: var(--body); }
+
+    /* ---------- numbered steps ---------- */
+    .steps { display: grid; gap: var(--s2); }
+    .step { display: grid; grid-template-columns: 2rem 1fr; gap: 0.62rem; padding-top: 0.66rem; border-top: 1px solid var(--rule); }
+    .step > b { color: var(--blue); font-family: var(--display); font-size: 1.55rem; line-height: 1; }
+    .step div { display: grid; gap: 0.22rem; }
+    .step strong { color: var(--ink); font-size: 0.84rem; }
+    .step span { color: var(--muted); font-size: 0.72rem; line-height: 1.32; }
+
+    /* ============================================================
+       COVER SLIDES
+       ============================================================ */
+    .title-cover {
+      grid-template-rows: 1fr auto; gap: var(--s5);
+      padding: 4.4rem 5.2rem 3.2rem;
+      background: linear-gradient(118deg, var(--paper) 0 66%, var(--blue-soft) 66% 100%);
+    }
+    .title-cover-stage { display: grid; align-items: center; min-height: 0; }
+    .title-cover h1 { max-width: none; font-size: var(--fs-mega); line-height: 0.95; }
+    .title-cover-subtitle { max-width: 48rem; margin-top: var(--s5); color: var(--muted); font-size: 1.5rem; line-height: 1.4; }
+    .title-cover-author { display: flex; align-items: center; gap: var(--s3); width: max-content; margin-top: 2.8rem; color: var(--blue-deep); font-size: 1.22rem; font-weight: var(--w-bold); letter-spacing: 0.03em; }
+    .title-cover-author::before { content: ""; width: 4.3rem; height: 0.28rem; background: var(--coral); }
+    .title-cover-meta { display: flex; align-items: center; justify-content: space-between; gap: var(--s5); padding-top: var(--s3); padding-right: 10rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: var(--fs-sm); letter-spacing: 0.035em; }
+
+    /* full-bleed evidence cover */
+    .evidence-cover {
+      grid-template-rows: auto 1fr auto; gap: var(--s4);
+      padding: 2.9rem 4.1rem 2.5rem;
+      background: linear-gradient(90deg, var(--blue) 0 0.8rem, transparent 0.8rem), var(--paper);
+    }
+    .evidence-cover .slide-header, .evidence-cover .cover-bottom { padding-left: 0.8rem; }
+    .evidence-cover h1 { max-width: 72rem; font-size: var(--fs-hero); }
+    .chart-shell {
+      position: relative; min-height: 0; margin-left: 0.8rem;
+      border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+      /* the wash marks the BAD region — set the stop to the threshold's y% */
+      background: linear-gradient(to bottom, rgba(227, 93, 80, 0.08) 0 51.3%, transparent 51.3% 100%);
+    }
+    .chart-svg { display: block; width: 100%; height: 100%; }
+    .chart-svg text { font-family: var(--body); }
+    .grid-line { stroke: var(--grid); stroke-width: 1; }
+    .axis-label { fill: var(--muted); font-size: 18px; }
+    .threshold-line { stroke: var(--amber); stroke-width: 3; stroke-dasharray: 10 9; }
+    .threshold-label { fill: #9a6710; font-size: 19px; font-weight: 800; }
+    .series-area { fill: url(#seriesArea); }
+    .series-line { fill: none; stroke: var(--blue); stroke-width: 7; stroke-linejoin: round; stroke-linecap: round; }
+    .series-last { fill: var(--coral); stroke: var(--paper); stroke-width: 6; }
+    .event-line { stroke: var(--coral); stroke-width: 2; stroke-dasharray: 5 8; }
+    .event-label { fill: var(--coral); font-size: 18px; font-weight: 800; }
+    .chart-title { fill: var(--ink); font-size: 20px; font-weight: 820; }
+    .chart-context { fill: var(--muted); font-size: 16px; font-weight: 720; letter-spacing: 0.04em; }
+    .cover-bottom { display: flex; align-items: center; justify-content: space-between; gap: var(--s5); padding-right: 10rem; color: var(--muted); font-size: 0.78rem; }
+
+    /* ---------- finale ---------- */
+    .finale { grid-template-rows: 1fr auto; padding: 4rem 5rem 2.8rem; }
+    .finale-stage { display: grid; grid-template-columns: 0.52fr 1.48fr; align-items: center; gap: var(--s7); }
+    .finale-mark { color: var(--blue-soft); font-family: var(--display); font-size: 17rem; line-height: 0.7; }
+    .finale h2 { max-width: 70rem; font-size: 3.7rem; }
+    .finale h2 span { color: var(--blue); }
+    .final-lines { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem 2.6rem; margin-top: 2.2rem; }
+    .final-line { padding-top: 0.9rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 1.04rem; line-height: 1.42; }
+    .final-line strong { display: block; margin-bottom: 0.28rem; color: var(--blue-deep); font-family: var(--display); font-size: 1.36rem; }
+    .finale .slide-footer::before { content: ""; }
+
+    /* ---------- chrome ---------- */
+    .controls {
+      position: absolute; right: 1.1rem; bottom: 0.85rem; z-index: 30;
+      display: flex; align-items: center; gap: 0.45rem; padding: 0.35rem;
+      border: 1px solid rgba(21,35,59,0.13); background: rgba(251,250,246,0.88);
+      backdrop-filter: blur(7px);
+    }
+    .nav-button { display: grid; place-items: center; width: 2rem; height: 2rem; border: 0; color: var(--blue-deep); background: transparent; cursor: pointer; font-size: 1rem; }
+    .nav-button:disabled { cursor: default; opacity: 0.25; }
+    .counter { min-width: 3.4rem; color: var(--muted); font-size: var(--fs-xs); text-align: center; }
+    .help { position: absolute; bottom: 1rem; left: 1.3rem; z-index: 30; color: rgba(100,112,134,0.6); font-size: var(--fs-xxs); }
+
+    @media (prefers-reduced-motion: reduce) { .slide, .progress { transition: none; } }
+
+    @media print {
+      @page { size: 13.333in 7.5in; margin: 0; }
+      html { font-size: 9.6pt; } /* 13.333in / 100 -> same proportions as screen */
+      html, body { width: auto; height: auto; overflow: visible; background: white; }
+      body { display: block; }
+      /* container-type/contain must be reset or pagination collapses */
+      .deck { width: auto; height: auto; overflow: visible; box-shadow: none; container-type: normal; contain: none; }
+      .slide { position: relative; display: grid; width: 13.333in; height: 7.5in; page-break-after: always; opacity: 1 !important; visibility: visible !important; transform: none !important; transition: none !important; }
+      .controls, .help, .progress { display: none; }
+    }
+
+    .brand { font-size: var(--fs-xs); color: var(--muted); letter-spacing: .14em; padding-top: var(--s2); }
+    .concept { display:block; width:100%; max-height:29rem; font-family:var(--display); }
+    .explain { color:var(--muted); font-size:var(--fs-md); line-height:1.5; }
+    .argument .tension p { font-size:var(--fs-body); line-height:1.45; }
+    .agent-picker { display:flex; gap:var(--s2); }
+    .agent-picker button { border:1px solid var(--rule); padding:var(--s2) var(--s3); background:transparent; color:var(--blue-deep); cursor:pointer; font-size:var(--fs-body); }
+    .agent-picker button[aria-pressed="true"] { background:var(--blue-soft); border-color:var(--blue); }
+    .agent-node { opacity:.4; transition:opacity 180ms ease; }
+    .agent-node.selected { opacity:1; }
+    .interactive-note { font-size:var(--fs-body); color:var(--muted); }
+    button:focus-visible,a:focus-visible { outline:3px solid var(--blue); outline-offset:3px; }
+    .deck-links { font-size:var(--fs-body); padding-top:var(--s3); }
+    a { color:var(--blue-deep); }
+    @media(prefers-reduced-motion:reduce) { .agent-node { transition:none; } }
+    @media print { :focus-visible { outline:none !important; } .agent-picker,.interactive-note { display:none; } .agent-node {opacity:1;} }
+    .diagram-scroll { min-width:0; }
+    .diagram-scroll:focus-visible { outline:3px solid var(--blue); outline-offset:3px; }
+    .diagram-hint { display:none; }
+    @media screen and (max-width:760px) {
+      html { font-size:16px; }
+      html, body { height:auto; overflow:visible; }
+      body { display:block; background:var(--paper); }
+      .deck { width:100%; height:auto; overflow:visible; box-shadow:none; }
+      .slide { display:none; position:relative; padding:1.5rem 1rem 6rem; gap:2rem; overflow:visible; transition:none; transform:none; }
+      .slide.active { display:grid; }
+      .slide-header { grid-template-columns:1fr; gap:1rem; }
+      h2 { font-size:2rem; }
+      .split-stage { grid-template-columns:minmax(0,1fr); gap:2rem; }
+      .question { font-size:1.65rem; }
+      .explain { font-size:1rem; }
+      .diagram-scroll { overflow-x:auto; overscroll-behavior-x:contain; }
+      .concept { width:560px; min-width:560px; max-height:none; }
+      .diagram-hint { display:block; font-size:.8rem; color:var(--muted); }
+      .agent-picker { flex-wrap:wrap; }
+      .agent-picker button, .nav-button { min-width:44px; min-height:44px; }
+      .slide-footer { flex-direction:column; align-items:flex-start; padding-right:0; font-size:.8rem; }
+      .slide-footer::before { white-space:normal; }
+      .controls { position:fixed; bottom:max(.5rem,env(safe-area-inset-bottom)); right:1rem; }
+      .counter { font-size:.8rem; }
+      .progress { position:fixed; }
+      .help { display:none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" id="deck" aria-label="Introducing Open Teacher">
+    <div class="progress" id="progress" aria-hidden="true"></div>
+
+<section class="slide active" data-title="Your learning gets scattered." aria-hidden="false">
+<header class="slide-header"><div><p class="eyebrow">01 · Recognize the problem</p><h2>Your <span class="accent">learning</span> gets scattered.</h2></div><span class="brand">OPEN TEACHER</span></header>
+<div class="split-stage"><div class="evidence"><div class="diagram-scroll" tabindex="0" role="region" aria-label="Slide diagram; scroll horizontally on small screens"><svg class="concept" viewBox="0 0 640 430" role="img" aria-label="Three separate learning records stop at a context gap before the next conversation."><rect x="25" y="48" width="285" height="84" fill="var(--paper)" stroke="var(--rule)"/><path d="M25 48h285" stroke="var(--blue)" stroke-width="4"/><text x="167.5" y="90.0" text-anchor="middle" fill="var(--blue)" font-size="23">A useful explanation</text><text x="167.5" y="117.0" text-anchor="middle" fill="var(--muted)" font-size="16">Saved in one chat</text><path d="M310 90 L418 90" stroke="var(--blue)" stroke-width="2" fill="none" stroke-dasharray="7 7"/><rect x="25" y="168" width="285" height="84" fill="var(--paper)" stroke="var(--rule)"/><path d="M25 168h285" stroke="var(--blue)" stroke-width="4"/><text x="167.5" y="210.0" text-anchor="middle" fill="var(--blue)" font-size="23">Your unfinished question</text><text x="167.5" y="237.0" text-anchor="middle" fill="var(--muted)" font-size="16">Buried in another</text><path d="M310 210 L418 210" stroke="var(--blue)" stroke-width="2" fill="none" stroke-dasharray="7 7"/><rect x="25" y="288" width="285" height="84" fill="var(--paper)" stroke="var(--rule)"/><path d="M25 288h285" stroke="var(--blue)" stroke-width="4"/><text x="167.5" y="330.0" text-anchor="middle" fill="var(--blue)" font-size="23">A diagram you made</text><text x="167.5" y="357.0" text-anchor="middle" fill="var(--muted)" font-size="16">Stored somewhere else</text><path d="M310 330 L418 330" stroke="var(--blue)" stroke-width="2" fill="none" stroke-dasharray="7 7"/><rect x="450" y="135" width="165" height="160" fill="var(--paper)" stroke="var(--rule)"/><path d="M450 135h165" stroke="var(--coral)" stroke-width="4"/><text x="532.5" y="215.0" text-anchor="middle" fill="var(--coral)" font-size="23">Next chat</text><text x="532.5" y="242.0" text-anchor="middle" fill="var(--muted)" font-size="16">Start over?</text><text x="460" y="70" text-anchor="middle" fill="var(--coral)" font-size="17">CONTEXT GAP</text></svg></div><p class="diagram-hint">Scroll the diagram sideways to explore it.</p></div><div class="argument"><p class="kicker">The cost of disconnected chats</p><h3 class="question">You learned something.<br>Can your next agent tell?</h3><p class="explain">Useful context can stay buried in chats: what clicked, what remains unclear, and which artifact matters. Switching tools can mean reconstructing the journey.</p><div class="tension"><p>Keeping a transcript helps. It does not, by itself, identify what you actually understood.</p></div></div></div>
+<footer class="slide-footer" data-rail="YOUR AI · YOUR LEARNING · YOUR FILES"><span>Illustrative problem, not a claim that every AI tool lacks memory.</span></footer></section>
+<section class="slide" data-title="Open Teacher gives memory a shared meaning." aria-hidden="true">
+<header class="slide-header"><div><p class="eyebrow">02 · Introduce the standard</p><h2><span class="accent">Open Teacher</span> gives memory a shared meaning.</h2></div><span class="brand">OPEN TEACHER</span></header>
+<div class="split-stage"><div class="evidence"><div class="diagram-scroll" tabindex="0" role="region" aria-label="Slide diagram; scroll horizontally on small screens"><svg class="concept" viewBox="0 0 640 430" role="img" aria-label="The Open Teacher standard defines recording, interpretation and continuation over one portable learning record."><rect x="125" y="22" width="390" height="76" fill="var(--paper)" stroke="var(--rule)"/><path d="M125 22h390" stroke="var(--coral)" stroke-width="4"/><text x="320.0" y="60.0" text-anchor="middle" fill="var(--coral)" font-size="23">Open Teacher</text><text x="320.0" y="87.0" text-anchor="middle" fill="var(--muted)" font-size="16">Draft open standard</text><path d="M320 98 L320 143" stroke="var(--coral)" stroke-width="2" fill="none" /><rect x="30" y="158" width="175" height="85" fill="var(--paper)" stroke="var(--rule)"/><path d="M30 158h175" stroke="var(--blue)" stroke-width="4"/><text x="117.5" y="200.5" text-anchor="middle" fill="var(--blue)" font-size="23">Record</text><text x="117.5" y="227.5" text-anchor="middle" fill="var(--muted)" font-size="16">Save useful context</text><rect x="232" y="158" width="175" height="85" fill="var(--paper)" stroke="var(--rule)"/><path d="M232 158h175" stroke="var(--blue)" stroke-width="4"/><text x="319.5" y="200.5" text-anchor="middle" fill="var(--blue)" font-size="23">Interpret</text><text x="319.5" y="227.5" text-anchor="middle" fill="var(--muted)" font-size="16">Read the evidence</text><rect x="435" y="158" width="175" height="85" fill="var(--paper)" stroke="var(--rule)"/><path d="M435 158h175" stroke="var(--blue)" stroke-width="4"/><text x="522.5" y="200.5" text-anchor="middle" fill="var(--blue)" font-size="23">Continue</text><text x="522.5" y="227.5" text-anchor="middle" fill="var(--muted)" font-size="16">Carry it forward</text><path d="M116 243 L116 292" stroke="var(--blue)" stroke-width="2" fill="none" /><path d="M320 243 L320 292" stroke="var(--blue)" stroke-width="2" fill="none" /><path d="M522 243 L522 292" stroke="var(--blue)" stroke-width="2" fill="none" /><path d="M116 292 L522 292" stroke="var(--blue)" stroke-width="2" fill="none" /><path d="M320 292 L320 320" stroke="var(--blue)" stroke-width="2" fill="none" /><rect x="80" y="322" width="480" height="80" fill="var(--paper)" stroke="var(--rule)"/><path d="M80 322h480" stroke="var(--blue)" stroke-width="4"/><text x="320.0" y="362.0" text-anchor="middle" fill="var(--blue)" font-size="23">One portable learning record</text><text x="320.0" y="389.0" text-anchor="middle" fill="var(--muted)" font-size="16">Profile · history · knowledge · artifacts</text></svg></div><p class="diagram-hint">Scroll the diagram sideways to explore it.</p></div><div class="argument"><p class="kicker">A contract between tools</p><h3 class="question">Standardize the handoff.<br>Keep the conversation open.</h3><p class="explain">The specification defines what useful learning records mean and how agents maintain them. Different tools can preserve the same journey.</p><div class="tension"><p>This repository includes a reference workspace. Other implementations can use different interfaces and layouts.</p></div></div></div>
+<footer class="slide-footer" data-rail="YOUR AI · YOUR LEARNING · YOUR FILES"><span>Draft 0.1 · Specification, not a hosted AI service.</span></footer></section>
+<section class="slide" data-title="Your agent teaches. The standard connects." aria-hidden="true">
+<header class="slide-header"><div><p class="eyebrow">03 · Choose your agent</p><h2>Your <span class="accent">agent</span> teaches. The <span class="alert">standard</span> connects.</h2></div><span class="brand">OPEN TEACHER</span></header>
+<div class="split-stage"><div class="evidence"><div class="diagram-scroll" tabindex="0" role="region" aria-label="Slide diagram; scroll horizontally on small screens"><svg class="concept" viewBox="0 0 640 430" role="img" aria-label="Three interchangeable AI agents connect to the same persistent learning files."><g class="agent-node" data-agent-node="0"><rect x="15" y="30" width="190" height="82" fill="var(--paper)" stroke="var(--rule)"/><path d="M15 30h190" stroke="var(--blue)" stroke-width="4"/><text x="110.0" y="71.0" text-anchor="middle" fill="var(--blue)" font-size="23">Codex</text><text x="110.0" y="98.0" text-anchor="middle" fill="var(--muted)" font-size="16">Reads + writes</text></g><path d="M110 112 L320 220" stroke="var(--blue)" stroke-width="2" fill="none" /><g class="agent-node" data-agent-node="1"><rect x="225" y="30" width="190" height="82" fill="var(--paper)" stroke="var(--rule)"/><path d="M225 30h190" stroke="var(--blue)" stroke-width="4"/><text x="320.0" y="71.0" text-anchor="middle" fill="var(--blue)" font-size="23">Claude Code</text><text x="320.0" y="98.0" text-anchor="middle" fill="var(--muted)" font-size="16">Reads + writes</text></g><path d="M320 112 L320 220" stroke="var(--blue)" stroke-width="2" fill="none" /><g class="agent-node" data-agent-node="2"><rect x="435" y="30" width="190" height="82" fill="var(--paper)" stroke="var(--rule)"/><path d="M435 30h190" stroke="var(--blue)" stroke-width="4"/><text x="530.0" y="71.0" text-anchor="middle" fill="var(--blue)" font-size="23">Another agent</text><text x="530.0" y="98.0" text-anchor="middle" fill="var(--muted)" font-size="16">Reads + writes</text></g><path d="M530 112 L320 220" stroke="var(--blue)" stroke-width="2" fill="none" /><rect x="125" y="220" width="390" height="105" fill="var(--paper)" stroke="var(--rule)"/><path d="M125 220h390" stroke="var(--coral)" stroke-width="4"/><text x="320.0" y="272.5" text-anchor="middle" fill="var(--coral)" font-size="23">Your shared learning memory</text><text x="320.0" y="299.5" text-anchor="middle" fill="var(--muted)" font-size="16">Same files. Same saved context.</text><text x="320" y="385" text-anchor="middle" fill="var(--blue-deep)" font-size="24">The agent changes. The record stays.</text></svg></div><p class="diagram-hint">Scroll the diagram sideways to explore it.</p><div class="agent-picker" role="group" aria-label="Choose an example AI agent"><button type="button" data-agent="0" aria-pressed="true">Codex</button><button type="button" data-agent="1" aria-pressed="false">Claude Code</button><button type="button" data-agent="2" aria-pressed="false">Another agent</button></div><p id="agent-caption" class="interactive-note" aria-live="polite">Codex reads the shared record.</p></div><div class="argument"><p class="kicker">Try switching the agent</p><h3 class="question">Keep your history when<br>your tools change.</h3><p class="explain">Your agent provides reasoning, conversation, and tools. Open Teacher defines the shared memory contract. It is not an agent or a model of its own.</p><div class="tension"><p>A compatible agent needs access to the same up-to-date files and must follow the standard. This selector is a conceptual demo, not a live AI connection.</p></div></div></div>
+<footer class="slide-footer" data-rail="YOUR AI · YOUR LEARNING · YOUR FILES"><span>Entry points supplied for Codex / Claude Code; interoperability requires testing.</span></footer></section>
+<section class="slide" data-title="Good memory keeps the distinctions." aria-hidden="true">
+<header class="slide-header"><div><p class="eyebrow">04 · Preserve the evidence</p><h2>Good <span class="accent">memory</span> keeps the distinctions.</h2></div><span class="brand">OPEN TEACHER</span></header>
+<div class="split-stage"><div class="evidence"><div class="diagram-scroll" tabindex="0" role="region" aria-label="Slide diagram; scroll horizontally on small screens"><svg class="concept" viewBox="0 0 640 430" role="img" aria-label="An explanation, a report of clarity and observed performance support different learning claims."><text x="25" y="36" text-anchor="start" fill="var(--muted)" font-size="17">OBSERVATION</text><text x="365" y="36" text-anchor="start" fill="var(--muted)" font-size="17">WHAT THE RECORD CAN SAY</text><path d="M25 65 L615 65" stroke="var(--blue)" stroke-width="2" fill="none" /><text x="25" y="105" text-anchor="start" fill="var(--ink)" font-size="22">Agent explains an idea</text><text x="365" y="105" text-anchor="start" fill="var(--blue)" font-size="22">Introduced</text><path d="M25 160 L615 160" stroke="var(--blue)" stroke-width="2" fill="none" /><text x="25" y="200" text-anchor="start" fill="var(--ink)" font-size="22">“That feels clear now”</text><text x="365" y="200" text-anchor="start" fill="var(--blue)" font-size="22">Self-reported clarity</text><path d="M25 255 L615 255" stroke="var(--blue)" stroke-width="2" fill="none" /><text x="25" y="295" text-anchor="start" fill="var(--ink)" font-size="22">You solve a new example</text><text x="365" y="295" text-anchor="start" fill="var(--blue)" font-size="22">Observed performance</text><rect x="25" y="345" width="590" height="65" fill="var(--paper)" stroke="var(--rule)"/><path d="M25 345h590" stroke="var(--coral)" stroke-width="4"/><text x="320.0" y="384.5" text-anchor="middle" fill="var(--coral)" font-size="23">Record the task, date, and help given.</text></svg></div><p class="diagram-hint">Scroll the diagram sideways to explore it.</p></div><div class="argument"><p class="kicker">Inspect it. Correct it.</p><h3 class="question">Remember what happened,<br>not an inflated score.</h3><p class="explain">A useful record preserves questions, attempts, assistance, and corrections. It separates a correct explanation from evidence of your understanding.</p><div class="tension"><p>One successful attempt still does not establish broad or lasting mastery. Claims stay scoped to their evidence.</p></div></div></div>
+<footer class="slide-footer" data-rail="YOUR AI · YOUR LEARNING · YOUR FILES"><span>Illustrative observations; no real learner data is used in this deck.</span></footer></section>
+<section class="slide" data-title="Your next question chooses the direction." aria-hidden="true">
+<header class="slide-header"><div><p class="eyebrow">05 · Follow curiosity</p><h2>Your <span class="accent">next question</span> chooses the direction.</h2></div><span class="brand">OPEN TEACHER</span></header>
+<div class="split-stage"><div class="evidence"><div class="diagram-scroll" tabindex="0" role="region" aria-label="Slide diagram; scroll horizontally on small screens"><svg class="concept" viewBox="0 0 640 430" role="img" aria-label="Unordered subject nodes surround the learner’s next question rather than forming a course sequence."><path d="M65 90 C210 60 380 80 520 115 M65 90 C100 270 260 380 530 305 M520 115 C390 210 360 330 530 305" stroke="var(--rule)" stroke-width="2" stroke-dasharray="6 9" fill="none"/><rect x="20" y="40" width="170" height="76" fill="var(--paper)" stroke="var(--rule)"/><path d="M20 40h170" stroke="var(--blue)" stroke-width="4"/><text x="105.0" y="85.0" text-anchor="middle" fill="var(--blue)" font-size="23">Music</text><rect x="390" y="65" width="170" height="76" fill="var(--paper)" stroke="var(--rule)"/><path d="M390 65h170" stroke="var(--blue)" stroke-width="4"/><text x="475.0" y="110.0" text-anchor="middle" fill="var(--blue)" font-size="23">Ecology</text><rect x="135" y="265" width="170" height="76" fill="var(--paper)" stroke="var(--rule)"/><path d="M135 265h170" stroke="var(--blue)" stroke-width="4"/><text x="220.0" y="310.0" text-anchor="middle" fill="var(--blue)" font-size="23">History</text><rect x="420" y="275" width="170" height="76" fill="var(--paper)" stroke="var(--rule)"/><path d="M420 275h170" stroke="var(--blue)" stroke-width="4"/><text x="505.0" y="320.0" text-anchor="middle" fill="var(--blue)" font-size="23">Code</text><circle cx="305" cy="185" r="62" fill="var(--coral-soft)"/><text x="305" y="181" text-anchor="middle" fill="var(--coral)" font-size="21">Your next</text><text x="305" y="209" text-anchor="middle" fill="var(--coral)" font-size="21">question</text></svg></div><p class="diagram-hint">Scroll the diagram sideways to explore it.</p></div><div class="argument"><p class="kicker">No required syllabus</p><h3 class="question">Go deep. Switch topics.<br>Return whenever you like.</h3><p class="explain">Explore an idea today and something unrelated tomorrow. Retrieve prior learning when it helps. A saved unfinished question is a place to return, not an obligation.</p><div class="tension"><p>Courses, quizzes, reviews, and projects can help when you want them. None is a required entrance to an ordinary question.</p></div></div></div>
+<footer class="slide-footer" data-rail="YOUR AI · YOUR LEARNING · YOUR FILES"><span>The protocol preserves flexibility; teaching methods are implementation choices.</span></footer></section>
+<section class="slide" data-title="Your artifacts stay connected to the learning." aria-hidden="true">
+<header class="slide-header"><div><p class="eyebrow">06 · Keep the useful work</p><h2>Your <span class="accent">artifacts</span> stay connected to the learning.</h2></div><span class="brand">OPEN TEACHER</span></header>
+<div class="split-stage"><div class="evidence"><div class="diagram-scroll" tabindex="0" role="region" aria-label="Slide diagram; scroll horizontally on small screens"><svg class="concept" viewBox="0 0 640 430" role="img" aria-label="A project links a diagram, code and slides to their topic notes and dated history."><rect x="140" y="20" width="360" height="72" fill="var(--paper)" stroke="var(--rule)"/><path d="M140 20h360" stroke="var(--blue)" stroke-width="4"/><text x="320.0" y="56.0" text-anchor="middle" fill="var(--blue)" font-size="23">An optional project</text><text x="320.0" y="83.0" text-anchor="middle" fill="var(--muted)" font-size="16">One goal, several artifacts</text><path d="M320 92 L105 165" stroke="var(--blue)" stroke-width="2" fill="none" /><rect x="20" y="165" width="170" height="85" fill="var(--paper)" stroke="var(--rule)"/><path d="M20 165h170" stroke="var(--blue)" stroke-width="4"/><text x="105.0" y="207.5" text-anchor="middle" fill="var(--blue)" font-size="23">Diagram</text><text x="105.0" y="234.5" text-anchor="middle" fill="var(--muted)" font-size="16">Editable source</text><path d="M105 250 L320 320" stroke="var(--blue)" stroke-width="2" fill="none" /><path d="M320 92 L320 165" stroke="var(--blue)" stroke-width="2" fill="none" /><rect x="235" y="165" width="170" height="85" fill="var(--paper)" stroke="var(--rule)"/><path d="M235 165h170" stroke="var(--blue)" stroke-width="4"/><text x="320.0" y="207.5" text-anchor="middle" fill="var(--blue)" font-size="23">Code</text><text x="320.0" y="234.5" text-anchor="middle" fill="var(--muted)" font-size="16">Editable source</text><path d="M320 250 L320 320" stroke="var(--blue)" stroke-width="2" fill="none" /><path d="M320 92 L535 165" stroke="var(--blue)" stroke-width="2" fill="none" /><rect x="450" y="165" width="170" height="85" fill="var(--paper)" stroke="var(--rule)"/><path d="M450 165h170" stroke="var(--blue)" stroke-width="4"/><text x="535.0" y="207.5" text-anchor="middle" fill="var(--blue)" font-size="23">Slides</text><text x="535.0" y="234.5" text-anchor="middle" fill="var(--muted)" font-size="16">Editable source</text><path d="M535 250 L320 320" stroke="var(--blue)" stroke-width="2" fill="none" /><rect x="100" y="320" width="440" height="82" fill="var(--paper)" stroke="var(--rule)"/><path d="M100 320h440" stroke="var(--coral)" stroke-width="4"/><text x="320.0" y="361.0" text-anchor="middle" fill="var(--coral)" font-size="23">Topic notes + dated history</text><text x="320.0" y="388.0" text-anchor="middle" fill="var(--muted)" font-size="16">Purpose · usage · evidence · continuation</text></svg></div><p class="diagram-hint">Scroll the diagram sideways to explore it.</p></div><div class="argument"><p class="kicker">Useful beyond the chat</p><h3 class="question">Keep the explanation.<br>Keep what made it click.</h3><p class="explain">Save diagrams, experiments, code, and slide decks with their context and editable sources. Projects can connect several outputs without duplicating them.</p><div class="tension"><p>A finished artifact is not proof of understanding. Preserve what the learner actually did alongside what the agent generated.</p></div></div></div>
+<footer class="slide-footer" data-rail="YOUR AI · YOUR LEARNING · YOUR FILES"><span>Ordinary files · portable links · optional project organization.</span></footer></section>
+<section class="slide" data-title="Bring your AI. Keep your learning." aria-hidden="true">
+<header class="slide-header"><div><p class="eyebrow">07 · Start with curiosity</p><h2>Bring your <span class="accent">AI</span>. Keep your <span class="alert">learning</span>.</h2></div><span class="brand">OPEN TEACHER</span></header>
+<div class="split-stage"><div class="evidence"><div class="diagram-scroll" tabindex="0" role="region" aria-label="Slide diagram; scroll horizontally on small screens"><svg class="concept" viewBox="0 0 640 430" role="img" aria-label="Three steps: clone the workspace, open a file-capable agent, and ask a question."><circle cx="53" cy="67" r="27" fill="var(--blue-soft)"/><text x="53" y="75" text-anchor="middle" fill="var(--blue)" font-size="26">1</text><rect x="108" y="25" width="505" height="90" fill="var(--paper)" stroke="var(--rule)"/><path d="M108 25h505" stroke="var(--blue)" stroke-width="4"/><text x="360.5" y="70.0" text-anchor="middle" fill="var(--blue)" font-size="23">Get the workspace</text><text x="360.5" y="97.0" text-anchor="middle" fill="var(--muted)" font-size="16">Clone functicons/open-teacher</text><circle cx="53" cy="192" r="27" fill="var(--blue-soft)"/><text x="53" y="200" text-anchor="middle" fill="var(--blue)" font-size="26">2</text><rect x="108" y="150" width="505" height="90" fill="var(--paper)" stroke="var(--rule)"/><path d="M108 150h505" stroke="var(--blue)" stroke-width="4"/><text x="360.5" y="195.0" text-anchor="middle" fill="var(--blue)" font-size="23">Open your preferred agent</text><text x="360.5" y="222.0" text-anchor="middle" fill="var(--muted)" font-size="16">Give it access to the local files</text><circle cx="53" cy="317" r="27" fill="var(--blue-soft)"/><text x="53" y="325" text-anchor="middle" fill="var(--blue)" font-size="26">3</text><rect x="108" y="275" width="505" height="90" fill="var(--paper)" stroke="var(--rule)"/><path d="M108 275h505" stroke="var(--coral)" stroke-width="4"/><text x="360.5" y="320.0" text-anchor="middle" fill="var(--coral)" font-size="23">Ask one question</text><text x="360.5" y="347.0" text-anchor="middle" fill="var(--muted)" font-size="16">“Read AGENTS.md. Help me understand…”</text></svg></div><p class="diagram-hint">Scroll the diagram sideways to explore it.</p></div><div class="argument"><p class="kicker">Open Teacher · Draft 0.1</p><h3 class="question">A shared standard.<br>A journey you control.</h3><p class="explain">Try the reference workspace, or implement the standard in your own tool. No Open Teacher account, server, database, or fixed curriculum is required.</p><div class="tension"><p>Personal files are ignored by Git by default. Your chosen AI provider may still process the content it reads.</p></div><p class="deck-links"><a href="https://github.com/functicons/open-teacher">Get Open Teacher ↗</a> · <a href="https://github.com/functicons/open-teacher/blob/main/PROTOCOL.md">Read the specification ↗</a></p></div></div>
+<footer class="slide-footer" data-rail="YOUR AI · YOUR LEARNING · YOUR FILES"><span>MIT licensed · No certification or learning-outcome guarantee implied.</span></footer></section>
+    <div class="help" aria-hidden="true">← → / space · swipe · Home / End</div>
+    <nav class="controls" aria-label="Slide navigation">
+      <button class="nav-button" id="prev" type="button" aria-label="Previous slide">←</button>
+      <span class="counter" id="counter" aria-live="polite">1 / 7</span>
+      <button class="nav-button" id="next" type="button" aria-label="Next slide">→</button>
+    </nav>
+  </main>
+
+  <script>
+    (() => {
+      /* data-order lets you reorder presentation without moving DOM blocks. */
+      const slides = [...document.querySelectorAll('.slide')]
+        .map((slide, index) => ({ slide, index, order: Number.parseInt(slide.dataset.order || String(index + 1), 10) }))
+        .sort((left, right) => left.order - right.order || left.index - right.index)
+        .map(({ slide }) => slide);
+
+      const previousButton = document.getElementById('prev');
+      const nextButton = document.getElementById('next');
+      const counter = document.getElementById('counter');
+      const progress = document.getElementById('progress');
+      const deckTitle = document.title;
+      let current = 0;
+      let touchStartX = null;
+      const readingLayout = window.matchMedia("screen and (max-width:760px)");
+
+      const clamp = (value) => Math.max(0, Math.min(slides.length - 1, value));
+      const fromHash = () => {
+        const requested = Number.parseInt(location.hash.slice(1), 10);
+        return Number.isFinite(requested) ? requested - 1 : 0;
+      };
+
+      function showSlide(index, updateHash = true) {
+        const nextIndex = clamp(index);
+        const changingSlide = nextIndex !== current;
+        const focusWasInSlide = slides[current].contains(document.activeElement);
+        slides.forEach((slide, slideIndex) => {
+          slide.classList.toggle('active', slideIndex === nextIndex);
+          slide.classList.toggle('previous', slideIndex < nextIndex);
+          slide.setAttribute('aria-hidden', String(slideIndex !== nextIndex));
+          slide.inert = slideIndex !== nextIndex;
+        });
+        current = nextIndex;
+        if (changingSlide && focusWasInSlide) {
+          const heading = slides[current].querySelector('h2');
+          heading.tabIndex = -1;
+          heading.focus({ preventScroll:true });
+        }
+        if (changingSlide && readingLayout.matches) window.scrollTo(0, 0);
+        previousButton.disabled = current === 0;
+        nextButton.disabled = current === slides.length - 1;
+        counter.textContent = `${current + 1} / ${slides.length}`;
+        progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+        document.title = `${slides[current].dataset.title || deckTitle} · ${deckTitle}`;
+        if (updateHash) history.replaceState(null, '', `#${current + 1}`);
+      }
+
+      previousButton.addEventListener('click', () => showSlide(current - 1));
+      nextButton.addEventListener('click', () => showSlide(current + 1));
+      document.addEventListener('keydown', (event) => {
+        if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey) return;
+        if (event.target.closest('input, textarea, select, [contenteditable]:not([contenteditable="false"])')) return;
+        if (event.key === ' ' && event.target.closest('button, a')) return;
+        if (readingLayout.matches && event.target.closest('.diagram-scroll')) return;
+        if (['ArrowRight', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); showSlide(current + 1); }
+        else if (['ArrowLeft', 'PageUp'].includes(event.key)) { event.preventDefault(); showSlide(current - 1); }
+        else if (event.key === 'Home') { event.preventDefault(); showSlide(0); }
+        else if (event.key === 'End') { event.preventDefault(); showSlide(slides.length - 1); }
+      });
+      document.addEventListener('touchstart', (event) => { touchStartX = event.changedTouches[0].clientX; }, { passive: true });
+      document.addEventListener('touchend', (event) => {
+        if (touchStartX === null || readingLayout.matches) return;
+        const delta = event.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(delta) > 50) showSlide(current + (delta < 0 ? 1 : -1));
+        touchStartX = null;
+      }, { passive: true });
+      window.addEventListener('hashchange', () => showSlide(fromHash(), false));
+      const agentNames = ['Codex', 'Claude Code', 'Another agent'];
+      function chooseAgent(index) {
+        document.querySelectorAll('[data-agent]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.agent) === index)));
+        document.querySelectorAll('[data-agent-node]').forEach(node => node.classList.toggle('selected', Number(node.dataset.agentNode) === index));
+        document.getElementById('agent-caption').textContent = `${agentNames[index]} reads the shared record. The saved learning stays the same.`;
+      }
+      document.querySelectorAll('[data-agent]').forEach(button => button.addEventListener('click', () => chooseAgent(Number(button.dataset.agent))));
+      chooseAgent(0);
+      showSlide(fromHash(), false);
+    })();
+  </script>
+</body>
+</html>

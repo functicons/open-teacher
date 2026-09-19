@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/open_teacher_banner.png" alt="Open Teacher — Follow your curiosity. Keep your learning. An open notebook connects mathematics, nature, history, space, music, and code." width="100%">
+  <img src="assets/open_teacher_banner.png" alt="Open Teacher — An open standard for AI learning memory. Interchangeable AI agents connect to shared learning records and artifacts. Your AI. Your learning. Your files." width="100%">
 </p>
 
 # Open Teacher
@@ -20,7 +20,11 @@ This repository includes a reference workspace you can use with your existing
 agent, plus the standard other tools can implement.
 
 [Read the specification](PROTOCOL.md) · [Try the reference workspace](#start-with-one-question) ·
-[How it works](docs/how_it_works.md) · [Contribute](CONTRIBUTING.md)
+[Visual introduction](docs/introduction_readme.md) · [How it works](docs/how_it_works.md) · [Contribute](CONTRIBUTING.md)
+
+**See the idea in seven slides:** [HTML presentation](docs/introduction.html) ·
+[PDF preview](docs/introduction.pdf). Download the HTML and open it in a browser;
+GitHub displays its source.
 
 **Draft 0.1 · MIT licensed · Plain files · No required server or database**
 
