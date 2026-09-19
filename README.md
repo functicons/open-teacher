@@ -8,30 +8,61 @@
 
 **An open standard for portable learning memory and AI teaching continuity.**
 
-Open Teacher specifies how agents record, interpret, and carry forward a learner's
-journey. Any topic. Any teaching approach. A shared record that can outlast a chat
-and move between tools.
+**Your agent. Your curiosity. Your learning history.**
 
-This repository contains the draft specification and a ready-to-use reference
-implementation. You can use the included workspace or implement the standard in
-your own agent, editor, or learning tool.
+Learn with the AI agent you prefer, and keep a learning record you can take with
+you. Open Teacher defines how agents save useful context, understand what you
+have actually learned, and pick up where you left off. The records belong in your
+workspace, independent of any one conversation or provider.
+
+Open Teacher is a specification, not an AI agent, model, or hosted tutoring app.
+This repository includes a reference workspace you can use with your existing
+agent, plus the standard other tools can implement.
 
 [Read the specification](PROTOCOL.md) · [Try the reference workspace](#start-with-one-question) ·
 [How it works](docs/how_it_works.md) · [Contribute](CONTRIBUTING.md)
 
 **Draft 0.1 · MIT licensed · Plain files · No required server or database**
 
-## The standard and its reference implementation
+## The problem: your learning gets scattered
 
-| Layer | What it defines | Where to start |
-| --- | --- | --- |
-| **Open Teacher standard** | Shared meaning for learner context, learning evidence, history, artifacts, and continuation; rules for reading, updating, and handing them off | [Draft specification](PROTOCOL.md) |
-| **Reference implementation** | One directory layout, agent instructions, optional templates, and teaching skills that implement the standard | [Use this workspace](#start-with-one-question) |
-| **Your implementation** | Your agent, interface, storage layout, and teaching methods, preserving the same record semantics and learner control | [Implementer guidance](PROTOCOL.md#11-producers-consumers-and-portability) |
+A useful learning conversation leaves more than answers: the explanation that
+finally clicked, the question still bothering you, a mistake you corrected, a
+small program or diagram you want to keep.
 
-The standard specifies what must survive a handoff. It leaves the learning
-conversation open. You do not need to adopt this repository's exact folder names,
-use a particular model, or run a particular application.
+That context can stay buried in individual chats or tied to a tool's private
+memory. Start another conversation or switch providers, and you may need to
+explain your background again, recover the useful files, and reconstruct where
+you stopped. A transcript alone also doesn't reliably distinguish an explanation
+you read from something you can do yourself.
+
+Open Teacher gives that history a shared, inspectable home—and defines how the
+next agent should read and update it.
+
+## Choose your agent. Keep your progress.
+
+**Open Teacher does not teach on its own. Your chosen agent does.**
+
+The agent brings its model, tools, explanations, and interaction style. Open
+Teacher supplies the common memory and handoff contract: what to record, how to
+interpret learning evidence, and how to continue from saved context.
+
+That separation is deliberate. You should be able to change agents as your
+preferences and tools evolve without rebuilding your learning history inside each
+one. Agent developers can adopt the standard without adopting a particular tutor
+persona, UI, model vendor, or course system.
+
+| Your agent provides | Open Teacher standardizes |
+| --- | --- |
+| Conversation, reasoning, and explanations | How useful learning context is recorded and discovered |
+| Tools to make diagrams, slides, or code | How artifacts connect to topics, evidence, and projects |
+| A teaching approach suited to your question | How observations distinguish exposure, self-report, and demonstrated understanding |
+| Its own interface and model | How another agent can interpret and continue the saved journey |
+
+The reference workspace provides entry points for Codex and Claude Code. Other
+agents can participate by reading and writing the shared files and following the
+standard, directly or through an integration. This is not a promise that every
+chat app can access local files automatically. [Compatibility](docs/compatibility.md).
 
 ## Your curiosity does not need a syllabus
 
@@ -42,18 +73,18 @@ without turning every conversation into a course.
 
 **The conversation is flexible. The memory has a home.**
 
-## What it offers
+## Why use Open Teacher
 
 | | What you get |
 | --- | --- |
-| **Any topic, any direction** | Your current question leads. Courses, quizzes, projects, and review routines are optional. |
+| **Freedom to follow curiosity** | Your current question leads. Courses, quizzes, projects, and review routines are optional. |
 | **Memory beyond a chat** | Save meaningful context and unfinished questions so another conversation can pick them up. |
-| **A shared home for different agents** | Common instructions and records, with entry points for Codex and Claude Code. Other file-capable agents can read `AGENTS.md`. |
+| **Freedom to change agents** | Keep the same learning records when you change compatible tools. Your history does not need to live exclusively in one provider's memory. |
 | **A record you can inspect and correct** | Human-readable notes distinguish what was explained, what felt clear, and what you demonstrated. |
 | **Learning you can keep** | Preserve slides, code, diagrams, experiments, and their editable sources alongside the relevant notes. |
 | **Projects when they help** | Connect several artifacts to one goal without making every question a project. |
 | **Teaching that adapts** | Discover reusable teaching skills, including visual explanations; keep personal feedback separate from the framework. |
-| **Your files, your choices** | Local Markdown, relative links, and a blank learner workspace. Personal data is ignored by Git by default. |
+| **Ownership without a new platform** | Read, edit, back up, or privately version ordinary files. No Open Teacher account, server, or database is required; personal data is ignored by Git by default. |
 
 ## Start with one question
 
@@ -103,9 +134,20 @@ attribute learning evidence, and resume across agents. It does not prescribe a
 subject, lesson sequence, teaching persona, or fixed conversation format.
 
 Alongside the specification, this repository ships a **reference implementation**:
-instructions, optional
-templates, a teaching skill, and a handoff checklist. No additional service is
+instructions, optional templates, a teaching skill, and a handoff checklist. No additional service is
 required by the framework. Optional artifact tools may have their own dependencies.
+
+## The standard and its reference implementation
+
+| Layer | What it defines | Where to start |
+| --- | --- | --- |
+| **Open Teacher standard** | Shared meaning for learner context, learning evidence, history, artifacts, and continuation; rules for reading, updating, and handing them off | [Draft specification](PROTOCOL.md) |
+| **Reference implementation** | One directory layout, agent instructions, optional templates, and teaching skills that implement the standard | [Use this workspace](#start-with-one-question) |
+| **Your implementation** | Your agent, interface, storage layout, and teaching methods, preserving the same record semantics and learner control | [Implementer guidance](PROTOCOL.md#11-producers-consumers-and-portability) |
+
+The standard specifies what must survive a handoff. It leaves the learning
+conversation open. You do not need to adopt this repository's exact folder names,
+use a particular model, or run a particular application.
 
 ## Inside the workspace
 
